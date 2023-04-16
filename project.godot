@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="ai-gui"
+run/main_scene="res://graph_canvas.tscn"
+config/features=PackedStringArray("4.0", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=3200
+window/size/viewport_height=1880
+window/stretch/scale=2.0
+
+[dotnet]
+
+project/assembly_name="ai-gui"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/graph/plugin.cfg")
