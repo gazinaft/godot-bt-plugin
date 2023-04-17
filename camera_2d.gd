@@ -15,6 +15,8 @@ func _input(event: InputEvent):
 
 
 func _input_magnify_gesture(event: InputEventMagnifyGesture):
+	var mouse_pos = get_viewport().get_mouse_position()
+	offset += (mouse_pos-offset)*abs(1-event.factor)
 	zoom *= event.factor
 	_clamp_camera()
 	zoom_changed.emit(zoom.x, min_zoom, max_zoom)
