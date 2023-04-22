@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://addons/utility/line_connection/line_connection_2d.gd" id="1_1e4ig"]
+[ext_resource type="PackedScene" uid="uid://dw20nmydy1g7g" path="res://addons/utility/line_connection/named_point/named_point.tscn" id="2_2ewm3"]
+
+[node name="LineConnection2D" type="Node2D"]
+script = ExtResource("1_1e4ig")
+
+[node name="NamedPoint" parent="." instance=ExtResource("2_2ewm3")]

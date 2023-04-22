@@ -1,5 +1,8 @@
-extends GraphNode
+@tool
+extends VBoxContainer
 
+var editor_interface: EditorInterface
+var viewport: Viewport 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

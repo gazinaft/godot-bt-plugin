@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2seano8j7inn"]
+
+[ext_resource type="Script" path="res://addons/utility/line_connection/sigmoid/sigmoid.gd" id="1_jp45o"]
+
+[node name="Sigmoid" type="Node2D"]
+script = ExtResource("1_jp45o")
+sigmoid_scale = Vector2(10, 10)
+rotation_angle = 90

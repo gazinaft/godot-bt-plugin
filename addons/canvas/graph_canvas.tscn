@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgb34fhnwd4tc"]
+
+[ext_resource type="Script" path="res://addons/canvas/graph_canvas.gd" id="1_fax0g"]
+[ext_resource type="Script" path="res://addons/canvas/viewport_input_fix.gd" id="2_dvrqj"]
+[ext_resource type="Script" path="res://addons/canvas/grid/grid.gd" id="3_g2w1m"]
+[ext_resource type="PackedScene" path="res://addons/graph_nodes/leaf/leaf_node.tscn" id="4_sx0o0"]
+[ext_resource type="Script" path="res://addons/canvas/camera_control/camera_control.gd" id="5_i8525"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbww7"]
+bg_color = Color(0.662745, 0.180392, 0.854902, 1)
+
+[node name="Control" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_fax0g")
+
+[node name="Menu" type="Panel" parent="."]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bbww7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LinkButton" type="LinkButton" parent="Menu/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 4
+text = "File"
+underline = 1
+
+[node name="LinkButton2" type="LinkButton" parent="Menu/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Help"
+underline = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_force_pass_scroll_events = false
+stretch = true
+script = ExtResource("2_dvrqj")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(3200, 1840)
+render_target_update_mode = 4
+
+[node name="Grid" type="Panel" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_g2w1m")
+
+[node name="LeafNode" parent="SubViewportContainer/SubViewport/Grid" instance=ExtResource("4_sx0o0")]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 350.0
+offset_bottom = 292.0
+
+[node name="CameraControl" type="Node" parent="SubViewportContainer/SubViewport"]
+script = ExtResource("5_i8525")
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[connection signal="gui_input" from="SubViewportContainer" to="SubViewportContainer" method="_on_gui_input"]
+[connection signal="zoom_changed" from="SubViewportContainer/SubViewport/CameraControl" to="SubViewportContainer/SubViewport/Grid" method="_on_camera_control_zoom_changed"]
