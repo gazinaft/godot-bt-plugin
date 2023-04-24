@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://w5qq54c7koen"]
 
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_4l0cv"]
 
@@ -65,5 +65,7 @@ action_mode = 0
 
 [node name="Draggable" type="Node" parent="."]
 script = ExtResource("1_4l0cv")
+node_to_move_path = NodePath("..")
+rect_path = NodePath("..")
 
 [connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]

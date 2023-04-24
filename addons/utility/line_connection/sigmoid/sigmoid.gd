@@ -1,6 +1,6 @@
 @tool
-extends Node2D
-const E = 2.7182
+class_name Sigmoid
+extends Control
 
 @export var step: float = 0.01 :
 	set (value):
@@ -31,8 +31,16 @@ const E = 2.7182
 
 var points: Array
 
+const E = 2.7182
+
 func sigmoid(x: float):
 	return -1/(1+pow(E, -5*x)) 
+
+func calc_points()->void:
+	points = []
+	for i in range(2/step):
+		var coord = -1 + (step*i)
+		points.append([coord, sigmoid(coord)])
 
 func _ready():
 	calc_points()
@@ -48,9 +56,3 @@ func _draw():
 		matrix = matrix.scaled(sigmoid_scale)
 		
 		draw_line(matrix*v1, matrix*v2, Color.DARK_RED, line_width)
-
-func calc_points()->void:
-	points = []
-	for i in range(2/step):
-		var coord = -1 + (step*i)
-		points.append([coord, sigmoid(coord)])

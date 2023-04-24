@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://addons/utility/line_connection/sigmoid/sigmoid.gd" id="1_jp45o"]
 
-[node name="Sigmoid" type="Node2D"]
+[node name="Sigmoid" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_jp45o")
 sigmoid_scale = Vector2(10, 10)
-rotation_angle = 90

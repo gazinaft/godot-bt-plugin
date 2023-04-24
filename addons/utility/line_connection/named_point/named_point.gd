@@ -1,22 +1,20 @@
 @tool
 class_name NamedPoint
-extends Node2D
+extends Control
 
-const LETTERS = ['A', 'B', 'C', 'D', 'E']
+const LETTERS = []
+
+signal point_moved
+
+@export_enum('A', 'B', 'C', 'D', 'E') var letter: String :
+	set (value):
+		letter = value
+		if is_inside_tree():
+			$Label.text = letter 
 
 func _ready():
-	var p_count = -1
-	for i in range(get_parent().get_child_count()):
-		var child = get_parent().get_child(i)
-		if child is NamedPoint:
-			p_count += 1
-	var label = get_node("Control/Label") as Label
-	label.text = LETTERS[p_count]
+	$Label.text = letter
 
 
-func _on_texture_button_button_down():
-	print("PRESSED")
-
-func _on_texture_button_gui_input(event:InputEvent):
-	print("PRESSED")
-	event.se
+func _on_draggable_moved():
+	point_moved.emit()
