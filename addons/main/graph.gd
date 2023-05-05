@@ -20,7 +20,16 @@ func _has_main_screen():
 
 
 func _edit(object):
-	var space = object as GridSpace
+	if object == null:
+		graph_canvas_instance.clear_space()
+	var get_space = func (n):
+		if n == null:
+			return null
+		if n is GridSpace:
+			return n
+		return n.get_parent()
+
+	var space = get_space.call(object)
 	if space == null:
 		return
 
@@ -55,8 +64,8 @@ func instantiate_canvas():
 
 
 func register_custom_types():
-	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://icon.svg"))
-	#add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://icon.svg"))
+	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://circle-ai.png"))
+	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
 
 
 func register_autoload():

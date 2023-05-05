@@ -6,10 +6,14 @@ var current_space: GridSpace
 
 func add_space(space: GridSpace):
 	if current_space != null:
-		$SubViewportContainer/SubViewport.remove_child(current_space)
-		current_space.queue_free()
+		clear_space()
 	current_space = space
 	$SubViewportContainer/SubViewport.add_child(space)
+
+
+func clear_space():
+	$SubViewportContainer/SubViewport.remove_child(current_space)
+	current_space.queue_free()
 
 
 func _ready():
