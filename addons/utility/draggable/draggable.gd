@@ -20,9 +20,12 @@ func _on_gui_input(event:InputEvent):
 		elif mButton.button_index == MOUSE_BUTTON_MASK_LEFT and !mButton.pressed:
 			is_being_dragged = false
 	if event is InputEventMouseMotion and is_being_dragged:
-		var node_to_move = get_node(GraphAutoload.PATH).get_parallel_tree_node(get_parent())
-		var move = event as InputEventMouseMotion
-		node_to_move.position += move.relative
-		node_to_move.position.x = clamp(node_to_move.position.x, 0, get_viewport().size.x - rect.size.x)
-		node_to_move.position.y = clamp(node_to_move.position.y, 0, get_viewport().size.y - rect.size.y)
-		moved.emit()
+		var node_to_move = get_parent()
+		get_node(GraphAutoload.PATH).sync_changes(node_to_move, func(node): move_node(node, event))
+
+
+func move_node(node_to_move: Control, move: InputEventMouseMotion):
+	node_to_move.position += move.relative
+	node_to_move.position.x = clamp(node_to_move.position.x, 0, get_viewport().size.x - rect.size.x)
+	node_to_move.position.y = clamp(node_to_move.position.y, 0, get_viewport().size.y - rect.size.y)
+	moved.emit()
