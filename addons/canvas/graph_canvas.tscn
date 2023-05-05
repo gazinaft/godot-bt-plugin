@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://brwk6l18pfu0o"]
+[gd_scene load_steps=7 format=3 uid="uid://brwk6l18pfu0o"]
 
 [ext_resource type="Script" path="res://addons/canvas/graph_canvas.gd" id="1_fax0g"]
 [ext_resource type="Script" path="res://addons/utility/viewport_input_fix.gd" id="2_6aunr"]
@@ -69,6 +69,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_g2w1m")
+
 [node name="ConnectionManager" type="Node" parent="SubViewportContainer/SubViewport/Grid"]
 script = ExtResource("5_2n5vy")
 

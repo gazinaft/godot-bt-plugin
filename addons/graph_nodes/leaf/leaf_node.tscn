@@ -31,6 +31,7 @@ alignment = 1
 [node name="Header" type="Panel" parent="VSplitContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 15)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
@@ -67,7 +68,6 @@ action_mode = 0
 
 [node name="Draggable" type="Node" parent="."]
 script = ExtResource("1_4l0cv")
-node_to_move_path = NodePath("..")
 rect_path = NodePath("..")
 
 [connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]

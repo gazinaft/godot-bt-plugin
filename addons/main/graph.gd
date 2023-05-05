@@ -26,6 +26,7 @@ func _edit(object):
 
 	var duplicate = space.duplicate(DUPLICATE_USE_INSTANTIATION)
 	get_node(GraphAutoload.PATH).edit_space(space, duplicate)
+	
 
 
 func  _handles(object):
@@ -63,10 +64,13 @@ func register_autoload():
 	var ga = get_node(GraphAutoload.PATH)
 	ga._editor_interface = get_editor_interface()
 	ga._graph_canvas = graph_canvas_instance
-
+	add_autoload_singleton(ConnectionManagerAutoload.NAME, "res://addons/autoload/connection_manager_autoload.gd")
+	var cma = get_node(ConnectionManagerAutoload.PATH)
+	
 
 func unload_plugin():
 	graph_canvas_instance.queue_free()
 	remove_custom_type("GridSpace")
 	#remove_custom_type("BaseLeaf")
 	remove_autoload_singleton(GraphAutoload.NAME)
+	remove_autoload_singleton(ConnectionManagerAutoload.NAME)
