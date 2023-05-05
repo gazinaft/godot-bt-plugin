@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://w5qq54c7koen"]
+[gd_scene load_steps=7 format=3 uid="uid://w5qq54c7koen"]
 
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_4l0cv"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_rrmyv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.329412, 0.352941, 0.717647, 1)
@@ -19,6 +20,7 @@ thickness = 4
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("1_rrmyv")
 
 [node name="VSplitContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(150, 2.08165e-12)
@@ -59,7 +61,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="VSplitContainer/Control"]
 material = SubResource("ShaderMaterial_yqkwa")
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(40, 15)
 layout_mode = 2
 action_mode = 0
 

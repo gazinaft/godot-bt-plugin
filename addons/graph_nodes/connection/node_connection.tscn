@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://but3rucgcr5kr"]
+
+[ext_resource type="Script" path="res://addons/graph_nodes/connection/node_connection.gd" id="1_mrjh3"]
+[ext_resource type="PackedScene" uid="uid://d3cekmsvdahv4" path="res://addons/utility/line_connection/line_connection_2d.tscn" id="2_1lbax"]
+
+[node name="NodeConnection" type="Control"]
+layout_mode = 3
+anchor_right = 0.108
+anchor_bottom = 0.107
+offset_right = 0.399994
+offset_bottom = 3.83998
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mrjh3")
+
+[node name="LineConnection2D" parent="." instance=ExtResource("2_1lbax")]
+layout_mode = 1
+anchors_preset = -1
