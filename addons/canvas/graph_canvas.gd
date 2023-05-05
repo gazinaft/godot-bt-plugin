@@ -1,14 +1,21 @@
 @tool
+class_name GraphCanvas
 extends VBoxContainer
 
-var editor_interface: EditorInterface
-var viewport: Viewport 
+var current_space: GridSpace
 
-# Called when the node enters the scene tree for the first time.
+func add_space(space: GridSpace):
+	if current_space != null:
+		$SubViewportContainer/SubViewport.remove_child(current_space)
+		current_space.queue_free()
+	current_space = space
+	$SubViewportContainer/SubViewport.add_child(space)
+
+
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#get_node("/root").print_tree()
 	pass
