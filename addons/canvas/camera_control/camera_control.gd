@@ -29,10 +29,7 @@ func _input(event: InputEvent):
 		if (event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN) and event.pressed:
 			_input_scroll(event)
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
-			if not dragging and event.pressed:
-				dragging = true
-			if dragging and not event.pressed:
-				dragging = false
+			dragging = event.pressed
 	if event is InputEventMouseMotion and dragging:
 		_input_mouse_move_camera(event)
 
@@ -76,7 +73,7 @@ func _clamp_camera():
 		
 
 func _camera_zoom_limit(zoom_up: bool):
-	return camera.zoom.x == max_zoom if zoom_up else false
+	return camera.zoom.x == max_zoom and zoom_up
 
 func print_fucking_tree(node, tab:int):
 	var s = ""
