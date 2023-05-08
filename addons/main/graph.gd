@@ -39,7 +39,7 @@ func _edit(object):
 
 
 func  _handles(object):
-	return object is GridSpace# or object is BaseLeaf
+	return object is GridSpace or object is BaseLeaf
 
 
 func _make_visible(visible):
@@ -80,6 +80,6 @@ func register_autoload():
 func unload_plugin():
 	graph_canvas_instance.queue_free()
 	remove_custom_type("GridSpace")
-	#remove_custom_type("BaseLeaf")
+	remove_custom_type("BaseLeaf")
 	remove_autoload_singleton(GraphAutoload.NAME)
 	remove_autoload_singleton(ConnectionManagerAutoload.NAME)

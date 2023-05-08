@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_ygnm8"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_yfeis"]
-[ext_resource type="PackedScene" uid="uid://b12e86wto8moy" path="res://addons/graph_nodes/leaf/base_leaf.tscn" id="3_e8ge1"]
+[ext_resource type="PackedScene" path="res://addons/graph_nodes/leaf/base_leaf.tscn" id="3_e8ge1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.329412, 0.352941, 0.717647, 1)
@@ -22,8 +22,8 @@ script = ExtResource("2_yfeis")
 
 [node name="LeafNode" parent="BaseLeaf" instance=ExtResource("3_e8ge1")]
 layout_mode = 0
-offset_left = 880.0
-offset_top = 264.0
-offset_right = 1030.0
-offset_bottom = 389.0
+offset_left = 77.0
+offset_top = 72.0
+offset_right = 227.0
+offset_bottom = 197.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
