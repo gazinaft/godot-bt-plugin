@@ -1,13 +1,17 @@
 @tool
 extends EditorPlugin
 
-const GraphCanvas = preload("res://addons/canvas/graph_canvas.tscn")
-var graph_canvas_instance
+const grphCanvas = preload("res://addons/canvas/graph_canvas.tscn")
+var graph_canvas_instance: GraphCanvas
 
 func _enter_tree():
 	instantiate_canvas()
 	register_autoload()
 	register_custom_types()
+
+
+func _apply_changes():
+	get_node(GraphAutoload.PATH).apply_changes.emit()
 
 
 func _exit_tree():
@@ -20,8 +24,10 @@ func _has_main_screen():
 
 
 func _edit(object):
-	if object == null:
-		graph_canvas_instance.clear_space()
+	if object != null and not _handles(object):
+		return
+
+	print("EDITING:",object)
 	var get_space = func (n):
 		if n == null:
 			return null
@@ -30,11 +36,16 @@ func _edit(object):
 		return n.get_parent()
 
 	var space = get_space.call(object)
-	if space == null:
-		return
+	
+	get_node(GraphAutoload.PATH).edit_space(space)
 
-	var duplicate = space.duplicate(DUPLICATE_USE_INSTANTIATION)
-	get_node(GraphAutoload.PATH).edit_space(space, duplicate)
+
+func _get_state()->Dictionary:
+	return graph_canvas_instance.get_state()
+
+
+func _set_state(state):
+	graph_canvas_instance.set_state(state)
 
 
 func  _handles(object):
@@ -42,7 +53,6 @@ func  _handles(object):
 
 
 func _make_visible(visible):
-	print("IM VISIBLE")
 	if graph_canvas_instance:
 		graph_canvas_instance.visible = visible
 		update_overlays()
@@ -57,7 +67,7 @@ func _get_plugin_icon():
 
 
 func instantiate_canvas():
-	graph_canvas_instance = GraphCanvas.instantiate()
+	graph_canvas_instance = grphCanvas.instantiate()
 	get_editor_interface().get_editor_main_screen().add_child(graph_canvas_instance)
 	_make_visible(false)
 
@@ -72,6 +82,7 @@ func register_autoload():
 	var ga = get_node(GraphAutoload.PATH)
 	ga._editor_interface = get_editor_interface()
 	ga._graph_canvas = graph_canvas_instance
+	scene_closed.connect(ga.remove_from_cache)
 
 
 func unload_plugin():

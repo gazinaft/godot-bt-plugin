@@ -43,11 +43,3 @@ func _clamp_camera():
 	camera.offset.x = clamp(camera.offset.x, 0, get_viewport().size.x - (get_viewport().size/camera.zoom.x).x)
 	camera.offset.y = clamp(camera.offset.y, 0, get_viewport().size.y - (get_viewport().size/camera.zoom.x).y)
 		
-
-func print_fucking_tree(node, tab:int):
-	var s = ""
-	for i in range(tab):
-		s += "-"
-	prints(s, node)
-	for i in range(node.get_child_count()):
-		print_fucking_tree(node.get_child(i), tab+1)
