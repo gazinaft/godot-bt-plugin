@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://brwk6l18pfu0o"]
+[gd_scene load_steps=6 format=3 uid="uid://brwk6l18pfu0o"]
 
 [ext_resource type="Script" path="res://addons/canvas/graph_canvas.gd" id="1_fax0g"]
 [ext_resource type="Script" path="res://addons/utility/viewport_input_fix.gd" id="2_6aunr"]
 [ext_resource type="Script" path="res://addons/canvas/grid/grid.gd" id="3_g2w1m"]
-[ext_resource type="Script" path="res://addons/graph_nodes/connection_manager.gd" id="5_2n5vy"]
 [ext_resource type="Script" path="res://addons/canvas/camera_control/camera_control.gd" id="5_i8525"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbww7"]
@@ -70,9 +69,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_g2w1m")
 
-[node name="ConnectionManager" type="Node" parent="SubViewportContainer/SubViewport/Grid"]
-script = ExtResource("5_2n5vy")
-
 [node name="CameraControl" type="Node" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("5_i8525")
 
@@ -81,4 +77,5 @@ anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [connection signal="gui_input" from="SubViewportContainer" to="SubViewportContainer" method="_on_gui_input"]
+[connection signal="gui_input" from="SubViewportContainer/SubViewport/Grid" to="SubViewportContainer/SubViewport/Grid" method="_on_gui_input"]
 [connection signal="zoom_changed" from="SubViewportContainer/SubViewport/CameraControl" to="SubViewportContainer/SubViewport/Grid" method="_on_camera_control_zoom_changed"]

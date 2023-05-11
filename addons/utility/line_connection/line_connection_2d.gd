@@ -1,10 +1,10 @@
 @tool
+class_name LineConnection2D
 extends Control
 
 @onready var sigmoid: Sigmoid = $Sigmoid
-@onready var point_a = $PointA
-@onready var point_b = $PointB
-
+@onready var point_a: NamedPoint = $PointA
+@onready var point_b: NamedPoint = $PointB
 
 func _ready():
 	adjust_sigmoid()

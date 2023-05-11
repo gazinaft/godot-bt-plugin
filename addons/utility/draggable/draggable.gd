@@ -1,4 +1,5 @@
 @tool
+class_name DraggableNode
 extends Node
 
 @export_node_path("Control", "NodeRect") var rect_path

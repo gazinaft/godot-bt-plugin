@@ -12,6 +12,8 @@ func add_space(space: GridSpace):
 
 
 func clear_space():
+	if not weakref(current_space).get_ref():
+		return
 	$SubViewportContainer/SubViewport.remove_child(current_space)
 	current_space.queue_free()
 

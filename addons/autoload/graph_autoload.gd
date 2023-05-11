@@ -27,6 +27,8 @@ func edit_space(space: GridSpace, space_duplicate):
 func sync_changes(node: Node, changes: Callable):
     var tree = _get_parallel_tree_node(node)
     changes.call(node)
+    if tree == null:
+        return
     changes.call(tree)
 
 
@@ -38,4 +40,4 @@ func select_in_tree(node):
 func _get_parallel_tree_node(node)->Node:
     var result = regex.search(node.get_path().get_concatenated_names())
 
-    return edited_space_tree.get_parent().get_node(result.get_string())
+    return edited_space_tree.get_parent().get_node_or_null(result.get_string())

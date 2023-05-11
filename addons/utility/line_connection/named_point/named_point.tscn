@@ -65,7 +65,6 @@ label_settings = SubResource("LabelSettings_g75a4")
 horizontal_alignment = 1
 
 [node name="Draggable" parent="." instance=ExtResource("1_5hd04")]
-node_to_move_path = NodePath("..")
 rect_path = NodePath("..")
 
 [node name="SubViewport" type="SubViewport" parent="."]

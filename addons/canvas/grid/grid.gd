@@ -1,11 +1,19 @@
 @tool
 
 extends Control
+signal mouse_drag_up
+
 
 @export var min_grid_size = 8
+var connected = false
 
 var curr_grid_size = 0
 var grid_steps = [[100,20], [50,10], [25, 5]]
+
+
+# ready not emitting
+func _ready():
+	pass
 
 func _draw():
 	for x in range(get_viewport().size.x / grid_steps[curr_grid_size][0]):
@@ -35,3 +43,16 @@ func _on_camera_control_zoom_changed(zoom: float, min_zoom:float, max_zoom:float
 	
 	queue_redraw()
 	
+
+
+func _on_gui_input(event):
+	if not connected:
+		var connection_manager: ConnectionManagerAutoload = get_node(ConnectionManagerAutoload.PATH)
+		mouse_drag_up.connect(connection_manager._end_invalid)
+		print("grid event connected")
+		connected = true
+		
+	if event is InputEventMouseButton:
+		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			mouse_drag_up.emit()
+			print("grid space drag up")

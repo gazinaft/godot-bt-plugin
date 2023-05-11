@@ -70,4 +70,5 @@ action_mode = 0
 script = ExtResource("1_4l0cv")
 rect_path = NodePath("..")
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
