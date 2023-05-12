@@ -18,8 +18,8 @@ func _process(delta):
 
 
 func save_space():
+	print("SAVING")
 	var pack = PackedScene.new()
 	pack.pack(self)
-	ResourceSaver.save(pack, get_tree().edited_scene_root.scene_file_path)
+	ResourceSaver.save(pack, self.scene_file_path)
 	#get_node(GraphAutoload.PATH)._editor_interface.save_scene()
-	

@@ -4,24 +4,32 @@ extends VBoxContainer
 
 var current_space: GridSpace
 
-func add_space(space: GridSpace):
-	if current_space != null:
-		clear_space()
-	current_space = space
-	$SubViewportContainer/SubViewport.add_child(space)
+@onready var viewport = $SubViewportContainer/SubViewport
+@onready var camera: Camera2D = $SubViewportContainer/SubViewport/Camera2D
 
+func add_space(space: GridSpace):
+	clear_space()
+
+	if space == null:
+		return
+
+	current_space = space
+	viewport.add_child(space)
+	
 
 func clear_space():
-	if not weakref(current_space).get_ref():
-		return
-	$SubViewportContainer/SubViewport.remove_child(current_space)
-	current_space.queue_free()
+	for i in viewport.get_child_count():
+		var child = viewport.get_child(i)
+		if child is GridSpace:
+			viewport.remove_child(child)
+
+	current_space = null
 
 
-func _ready():
-	pass
+func get_state()->Dictionary:
+	return {"zoom": camera.zoom, "offset": camera.offset}
 
 
-func _process(delta):
-	#get_node("/root").print_tree()
-	pass
+func set_state(state: Dictionary):
+	camera.zoom = state["zoom"]
+	camera.offset = state["offset"]
