@@ -19,7 +19,7 @@ func _start_connection(p: LeafNode):
 
 	parent.draggable_node.moved.connect(line_conn.point_a._on_follow_point_moved)
 	
-	line_conn.point_b.position = get_local_mouse_position()
+	line_conn.point_b.position = get_local_mouse_position() - Vector2(15, 15)
 	line_conn.point_b.draggable_node.is_being_dragged = true
 	
 	print("node connection start")

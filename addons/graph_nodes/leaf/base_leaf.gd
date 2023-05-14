@@ -2,7 +2,7 @@
 class_name BaseLeaf
 extends Control
 
-var scene = preload("res://addons/graph_nodes/leaf/base_leaf.tscn")
+var scene = preload("res://addons/graph_nodes/leaf/leaf_node.tscn")
 
 var leaf: Node
 

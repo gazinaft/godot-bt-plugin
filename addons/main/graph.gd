@@ -84,6 +84,8 @@ func register_autoload():
 	ga._editor_interface = get_editor_interface()
 	ga._graph_canvas = graph_canvas_instance
 	scene_closed.connect(ga.remove_from_cache)
+	add_autoload_singleton(ConnectionManagerAutoload.NAME, "res://addons/autoload/connection_manager_autoload.gd")
+	var cma = get_node(ConnectionManagerAutoload.PATH)
 
 
 func unload_plugin():

@@ -15,8 +15,6 @@ var grid: Node = null :
 	set(value):
 		if grid != null: 
 			grid.child_entered_tree.disconnect(connect_leaf)
-			# for leaf in connected_leaves.duplicate(false):
-				# disconnect_leaf(leaf)
 			connected_leaves = []
 		grid = value
 		get_leaf_nodes_from_tree(grid)
