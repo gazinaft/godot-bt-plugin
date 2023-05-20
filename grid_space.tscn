@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://5l1sghv7oenq"]
+
+[ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_ygnm8"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_yfeis"]
+[ext_resource type="PackedScene" uid="uid://b12e86wto8moy" path="res://addons/graph_nodes/leaf/base_leaf.tscn" id="3_8a062"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0.329412, 0.352941, 0.717647, 1)
+
+[node name="GridSpace2" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ygnm8")
+
+[node name="BaseLeaf" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_yfeis")
+
+[node name="LeafNode" parent="BaseLeaf" instance=ExtResource("3_8a062")]
+layout_mode = 0
+offset_left = 906.0
+offset_top = 271.0
+offset_right = 1056.0
+offset_bottom = 396.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
