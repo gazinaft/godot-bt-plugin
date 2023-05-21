@@ -5,12 +5,6 @@ extends Control
 var is_save_required: bool = false
 
 
-func _ready():
-	var connection_manager: ConnectionManagerAutoload = get_node(ConnectionManagerAutoload.PATH)
-	connection_manager.grid = self
-	print("GridSpace child  connected")
-
-
 func _process(delta):
 	if is_save_required:
 		save_space()

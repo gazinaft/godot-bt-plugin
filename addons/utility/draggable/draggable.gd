@@ -29,4 +29,4 @@ func move_node(node_to_move: Control, move: InputEventMouseMotion):
 	node_to_move.position += move.relative
 	node_to_move.position.x = clamp(node_to_move.position.x, 0, get_viewport().size.x - rect.size.x)
 	node_to_move.position.y = clamp(node_to_move.position.y, 0, get_viewport().size.y - rect.size.y)
-	moved.emit()
+	moved.emit(move.relative)

@@ -8,6 +8,8 @@ extends Control
 
 func _ready():
 	adjust_sigmoid()
+	point_a.point_moved.connect(adjust_sigmoid)
+	point_b.point_moved.connect(adjust_sigmoid)
 
 func adjust_sigmoid():
 	var b_pos = point_b.position + Vector2(15, 15)

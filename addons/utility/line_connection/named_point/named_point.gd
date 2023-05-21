@@ -4,9 +4,6 @@ extends Control
 
 const LETTERS = []
 
-@onready var draggable_node: DraggableNode = $Draggable
-
-var place_to_follow: Callable
 var is_following: bool = false
 
 signal point_moved
@@ -20,8 +17,8 @@ signal point_moved
 func _ready():
 	$Label.text = letter
 
-func _on_follow_point_moved():
-	self.position = place_to_follow.call()
+func _on_follow_point_moved(relative: Vector2):
+	self.position += relative
 	point_moved.emit()
 
 func _on_draggable_moved():

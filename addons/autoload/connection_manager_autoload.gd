@@ -8,71 +8,36 @@ const PATH = "/root/" + NAME
 var connection_scene = preload("res://addons/graph_nodes/connection/node_connection.tscn")
 var active_conn: NodeConnection = null
 
+var from: LeafNode
 
-var connected_leaves: Array = []
-
-var grid: Node = null :
-	set(value):
-		if grid != null: 
-			grid.child_entered_tree.disconnect(connect_leaf)
-			connected_leaves = []
-		grid = value
-		get_leaf_nodes_from_tree(grid)
-		connect_stored_leaves()
-		grid.child_entered_tree.connect(connect_leaf)
-		print("grid set in autoload")			
-
-func get_leaf_nodes_from_tree(st: Node):
-	find_by_class(st, connected_leaves)
-
-func connect_stored_leaves():
-	for l in connected_leaves:		
-		l.connection_start.connect(_start_connection)
-		l.connection_end.connect(_end_connection)
-		print("connected leafnode " + l.name)
-
-func connect_leaf(l: Node):
-	if l is LeafNode:
-		connected_leaves.append(l)
-		l.connection_start.connect(_start_connection)
-		l.connection_end.connect(_end_connection)
-		print("connected leafnode " + l.name)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-func find_by_class(node: Node, result : Array) -> void:
-	if node is LeafNode :
-		result.push_back(node)
-		print("found ", node.name)
-	for child in node.get_children():
-		find_by_class(child, result)
-
-
-func _start_connection(start: LeafNode):
-	print("CM start connection")
+func connection_started(leaf: LeafNode):
+	from = leaf
 	active_conn = connection_scene.instantiate()
-	print("scene instantiated")
-	grid.add_child(active_conn)
-	print("child added")
-	active_conn._start_connection(start)	
+	from.get_parent().add_child(active_conn)
+	active_conn._start_connection(from)
 
-func _end_connection(end: LeafNode):
-	print("CM end connection")
-	if active_conn == null:
-		return
-	active_conn._end_connection(end)
+
+func connection_ended():
+	var grph_autload = get_node(GraphAutoload.PATH) as GraphAutoload
+	print("over: ", grph_autload.mouse_over)
+	if grph_autload.mouse_over is LeafNode and grph_autload.mouse_over != from:
+		active_conn._end_connection(grph_autload.mouse_over)
+		sync_connection(grph_autload)
+	else:
+		from.get_parent().remove_child(active_conn)
+		active_conn.queue_free()
+	
 	active_conn = null
+	from = null
 
-func _end_invalid():
-	print("CM invalid connection start")
-	if active_conn == null:
-		return
-	print("CM invalid delete node")
-	grid.remove_child(active_conn)
-	active_conn.queue_free()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func sync_connection(grph_autload: GraphAutoload):
+	var dup = active_conn.duplicate() as NodeConnection
+
+	grph_autload.edited_space_tree.add_child(dup)
+
+	dup.owner = grph_autload.edited_space_tree
+	dup.parent_base = grph_autload._get_parallel_tree_node(active_conn.parent).get_parent().get_path()
+	dup.child_base = grph_autload._get_parallel_tree_node(active_conn.child).get_parent().get_path()
+	dup.is_connected = true
+	active_conn.is_connected = true

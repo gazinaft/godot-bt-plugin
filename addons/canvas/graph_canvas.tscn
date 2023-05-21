@@ -71,11 +71,11 @@ script = ExtResource("3_g2w1m")
 
 [node name="CameraControl" type="Node" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("5_i8525")
+mouse_delta_zoom = null
 
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [connection signal="gui_input" from="SubViewportContainer" to="SubViewportContainer" method="_on_gui_input"]
-[connection signal="gui_input" from="SubViewportContainer/SubViewport/Grid" to="SubViewportContainer/SubViewport/Grid" method="_on_gui_input"]
 [connection signal="zoom_changed" from="SubViewportContainer/SubViewport/CameraControl" to="SubViewportContainer/SubViewport/Grid" method="_on_camera_control_zoom_changed"]

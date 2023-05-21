@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://5l1sghv7oenq"]
+[gd_scene load_steps=5 format=3 uid="uid://5l1sghv7oenq"]
 
 [ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_ygnm8"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_yfeis"]
-[ext_resource type="PackedScene" uid="uid://w5qq54c7koen" path="res://addons/graph_nodes/leaf/leaf_node.tscn" id="3_75y7j"]
+[ext_resource type="PackedScene" uid="uid://cfnig6jtddiu3" path="res://addons/graph_nodes/leaf/leaf_node.tscn" id="3_75y7j"]
+[ext_resource type="PackedScene" uid="uid://but3rucgcr5kr" path="res://addons/graph_nodes/connection/node_connection.tscn" id="4_y5hbt"]
 
 [node name="GridSpace2" type="Control"]
 layout_mode = 3
@@ -21,7 +22,26 @@ script = ExtResource("2_yfeis")
 
 [node name="LeafNode" parent="BaseLeaf" instance=ExtResource("3_75y7j")]
 layout_mode = 0
-offset_left = 667.0
-offset_top = 207.5
-offset_right = 817.0
-offset_bottom = 337.5
+offset_left = 670.29
+offset_top = 726.0
+offset_right = 820.29
+offset_bottom = 856.0
+
+[node name="BaseLeaf2" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_yfeis")
+
+[node name="LeafNode" parent="BaseLeaf2" instance=ExtResource("3_75y7j")]
+layout_mode = 0
+offset_left = 309.83
+offset_top = 261.631
+offset_right = 459.83
+offset_bottom = 391.631
+
+[node name="NodeConnection" parent="." instance=ExtResource("4_y5hbt")]
+layout_mode = 1
+parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/GridSpace2/BaseLeaf2")
+child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/GridSpace2/BaseLeaf")
+is_connected = true

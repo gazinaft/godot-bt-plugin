@@ -11,7 +11,10 @@ var _graph_canvas: GraphCanvas
 var edited_space_tree: GridSpace
 var edited_space_canvas: GridSpace
 
+var mouse_over: Control
+
 var regex: RegEx
+var regex_canvas: RegEx
 
 signal apply_changes
 
@@ -20,6 +23,8 @@ var opened_scenes: Dictionary = {}
 func _ready():
     regex = RegEx.new()
     regex.compile("(?<=SubViewport/).*")
+    regex_canvas = RegEx.new()
+    regex_canvas.compile("(?<=SubViewport@\\d{4}/).*")
 
 
 func edit_space(space: GridSpace):
@@ -57,6 +62,12 @@ func _get_parallel_tree_node(node)->Node:
     var result = regex.search(node.get_path().get_concatenated_names())
 
     return edited_space_tree.get_parent().get_node_or_null(result.get_string())
+
+
+func _get_parallel_canvas_node(node)->Node:
+    var result = regex_canvas.search(node.get_path().get_concatenated_names())
+
+    return edited_space_canvas.get_parent().get_node_or_null(result.get_string())
 
 func remove_from_cache(path):
     if opened_scenes.has(path):

@@ -15,11 +15,12 @@ script = ExtResource("1_1e4ig")
 
 [node name="Sigmoid" parent="." instance=ExtResource("2_bda6g")]
 layout_mode = 0
-offset_left = 612.0
-offset_top = 431.0
-offset_right = 612.0
-offset_bottom = 431.0
+offset_left = 204.5
+offset_top = 84.0
+offset_right = 204.5
+offset_bottom = 84.0
 line_width = 5.0
+sigmoid_scale = Vector2(151, 61)
 rotation_angle = 90
 
 [node name="PointA" parent="." instance=ExtResource("2_2ewm3")]
@@ -29,10 +30,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 266.0
-offset_top = 130.0
-offset_right = 296.0
-offset_bottom = 160.0
+offset_left = 114.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 38.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -43,13 +44,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 111.0
-offset_top = 4.0
-offset_right = 141.0
-offset_bottom = 34.0
+offset_left = 265.0
+offset_top = 130.0
+offset_right = 295.0
+offset_bottom = 160.0
 grow_horizontal = 1
 grow_vertical = 1
 letter = "B"
-
-[connection signal="point_moved" from="PointA" to="." method="adjust_sigmoid"]
-[connection signal="point_moved" from="PointB" to="." method="adjust_sigmoid"]

@@ -5,14 +5,15 @@
 
 [node name="NodeConnection" type="Control"]
 layout_mode = 3
-anchor_right = 0.108
-anchor_bottom = 0.107
-offset_right = 0.399994
-offset_bottom = 3.83998
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mrjh3")
+parent_base = null
+child_base = null
 
-[node name="LineConnection2D" parent="." instance=ExtResource("2_1lbax")]
+[node name="Line" parent="." instance=ExtResource("2_1lbax")]
 layout_mode = 1
 anchors_preset = -1

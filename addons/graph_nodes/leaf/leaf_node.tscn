@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://w5qq54c7koen"]
+[gd_scene load_steps=8 format=3 uid="uid://cfnig6jtddiu3"]
 
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_4l0cv"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_rrmyv"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_nog34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.329412, 0.352941, 0.717647, 1)
@@ -19,6 +20,7 @@ thickness = 4
 [node name="LeafNode" type="PanelContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
 script = ExtResource("1_rrmyv")
 
@@ -60,15 +62,19 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(2.08165e-12, 10)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VSplitContainer/Control"]
+[node name="ConnectionButton" type="Button" parent="VSplitContainer/Control"]
 material = SubResource("ShaderMaterial_yqkwa")
 custom_minimum_size = Vector2(40, 15)
 layout_mode = 2
 action_mode = 0
+script = ExtResource("2_nog34")
 
 [node name="Draggable" type="Node" parent="."]
 script = ExtResource("1_4l0cv")
 rect_path = NodePath("..")
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
+[connection signal="button_down" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_down"]
+[connection signal="button_up" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_up"]
