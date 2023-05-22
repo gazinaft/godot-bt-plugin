@@ -2,7 +2,7 @@
 class_name Selector
 extends Control
 
-var scene = preload("res://addons/graph_nodes/tree_control/selector.gd")
+var scene = preload("res://addons/graph_nodes/tree_control/selector.tscn")
 
 var leaf: Node
 

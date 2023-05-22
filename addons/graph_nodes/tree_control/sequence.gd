@@ -2,7 +2,7 @@
 class_name Sequence
 extends PanelContainer
 
-var scene = preload("res://addons/graph_nodes/tree_control/sequence.gd")
+var scene = preload("res://addons/graph_nodes/tree_control/sequence.tscn")
 
 var leaf: Node
 
