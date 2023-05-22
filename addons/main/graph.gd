@@ -50,7 +50,7 @@ func _set_state(state):
 
 
 func  _handles(object):
-	return object is GridSpace or object is BaseLeaf or object is NodeConnection
+	return object is GridSpace or object is BaseLeaf or object is NodeConnection or object is Selector or object is Sequence
 
 
 func _make_visible(visible):
@@ -76,6 +76,9 @@ func instantiate_canvas():
 func register_custom_types():
 	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://circle-ai.png"))
 	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
+	add_custom_type("Sequence", "Control", preload("res://addons/graph_nodes/tree_control/sequence.gd"), preload("res://Sequence.png"))
+	add_custom_type("Selector", "Control", preload("res://addons/graph_nodes/tree_control/selector.gd"), preload("res://Selector.png"))
+
 
 
 func register_autoload():

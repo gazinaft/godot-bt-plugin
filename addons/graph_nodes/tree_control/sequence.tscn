@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://codg4ls0l2ips"]
+
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence.gd" id="1_gkpsn"]
+[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_ikgti"]
+[ext_resource type="Texture2D" uid="uid://chugphst15v2l" path="res://arrow.svg" id="2_fdawx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0.701961, 0.670588, 0, 1)
+
+[sub_resource type="Theme" id="Theme_elebl"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1pgqx"]
+color = Color(0.894118, 0.862745, 0.882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yqkwa"]
+
+[node name="Sequence" type="PanelContainer"]
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("1_gkpsn")
+
+[node name="VSplitContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme = SubResource("Theme_elebl")
+alignment = 1
+
+[node name="Header" type="Panel" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VSplitContainer/Decorators"]
+layout_mode = 2
+text = "Sequence"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
+
+[node name="TextureRect" type="TextureRect" parent="VSplitContainer"]
+custom_minimum_size = Vector2(4.495, 47.72)
+layout_mode = 2
+texture = ExtResource("2_fdawx")
+expand_mode = 2
+stretch_mode = 2
+
+[node name="Control" type="CenterContainer" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 10)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VSplitContainer/Control"]
+material = SubResource("ShaderMaterial_yqkwa")
+custom_minimum_size = Vector2(131.365, 13.09)
+layout_mode = 2
+action_mode = 0
+
+[node name="Draggable" type="Node" parent="."]
+script = ExtResource("1_ikgti")
+rect_path = NodePath("..")
+
+[connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
