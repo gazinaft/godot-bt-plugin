@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfnig6jtddiu3"]
+[gd_scene load_steps=9 format=3 uid="uid://cfnig6jtddiu3"]
 
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_4l0cv"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_rrmyv"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_nog34"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_xmptp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.329412, 0.352941, 0.717647, 1)
@@ -73,6 +74,10 @@ script = ExtResource("2_nog34")
 script = ExtResource("1_4l0cv")
 rect_path = NodePath("..")
 
+[node name="Selectable" type="Node" parent="."]
+script = ExtResource("4_xmptp")
+
+[connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
