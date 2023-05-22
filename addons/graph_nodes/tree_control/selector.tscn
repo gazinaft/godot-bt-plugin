@@ -1,96 +1,88 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvjw07aj3ag7g"]
+[gd_scene load_steps=10 format=3 uid="uid://chd585jtju0rm"]
 
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector_ui.gd" id="1_5b7q2"]
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_j5phq"]
-[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector.gd" id="1_vvx00"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="1_ybdvk"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="3_iwc0h"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_in60p"]
-bg_color = Color(0, 0.721569, 0.317647, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0.701961, 0.670588, 0, 1)
 
 [sub_resource type="Theme" id="Theme_elebl"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yqkwa"]
+[sub_resource type="LabelSettings" id="LabelSettings_te7br"]
+line_spacing = 0.0
+font_size = 20
+shadow_size = 0
 
-[node name="Selector" type="Control"]
-layout_mode = 3
-anchor_right = 0.02
-anchor_bottom = 0.031
-offset_right = -7.0
-offset_bottom = 4.72
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1pgqx"]
+color = Color(0.894118, 0.862745, 0.882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_le6ci"]
+
+[node name="Selector" type="PanelContainer"]
+scale = Vector2(1, 1.00544)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_vvx00")
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 31.0
-offset_top = -15.0
-offset_right = 94.0
-offset_bottom = 48.0
-rotation = 0.785398
-scale = Vector2(1.00448, 0.980392)
-theme_override_styles/panel = SubResource("StyleBoxFlat_in60p")
-
-[node name="Header" type="Panel" parent="."]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-offset_left = 31.0
-offset_top = -15.0
-offset_right = 43.0
-offset_bottom = -3.0
-rotation = 0.785398
-mouse_filter = 1
-
-[node name="Header2" type="Panel" parent="."]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-offset_left = 40.0
-offset_top = -5.0
-offset_right = 70.0
-offset_bottom = 7.0
-rotation = 0.785398
-mouse_filter = 1
-
-[node name="Header3" type="Panel" parent="."]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-offset_left = 1.0
-offset_top = 16.0
-offset_right = 31.0
-offset_bottom = 28.0
-rotation = -0.785398
-mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("1_5b7q2")
 
 [node name="VSplitContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 2.08165e-12)
 layout_mode = 2
-offset_left = 6.0
-offset_top = 10.0
-offset_right = 56.0
-offset_bottom = 69.0
 theme = SubResource("Theme_elebl")
 alignment = 1
 
+[node name="Header" type="Panel" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="VSplitContainer"]
+layout_mode = 2
+text = "Selector"
+label_settings = SubResource("LabelSettings_te7br")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VSplitContainer"]
+layout_mode = 2
+text = "?
+"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
+
 [node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
-
-[node name="Label2" type="Label" parent="VSplitContainer/Decorators"]
-layout_mode = 2
-text = "?"
-horizontal_alignment = 1
 
 [node name="Control" type="CenterContainer" parent="VSplitContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 10)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VSplitContainer/Control"]
-material = SubResource("ShaderMaterial_yqkwa")
-custom_minimum_size = Vector2(31.955, 10)
+[node name="ConnectionButton" type="Button" parent="VSplitContainer/Control"]
+material = SubResource("ShaderMaterial_le6ci")
+custom_minimum_size = Vector2(100, 18)
 layout_mode = 2
 action_mode = 0
+script = ExtResource("1_ybdvk")
 
 [node name="Draggable" type="Node" parent="."]
 script = ExtResource("1_j5phq")
 rect_path = NodePath("..")
 
-[connection signal="gui_input" from="Header" to="Draggable" method="_on_gui_input"]
-[connection signal="gui_input" from="Header2" to="Draggable" method="_on_gui_input"]
-[connection signal="gui_input" from="Header3" to="Draggable" method="_on_gui_input"]
+[node name="Selectable" type="Node" parent="."]
+script = ExtResource("3_iwc0h")
+
+[connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
+[connection signal="button_down" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_down"]
+[connection signal="button_up" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_up"]

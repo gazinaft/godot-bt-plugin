@@ -1,7 +1,6 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_wvefv"]
-[ext_resource type="PackedScene" path="res://addons/graph_nodes/leaf/base_leaf.tscn" id="2_noepl"]
 
 [node name="GridSpace" type="Control"]
 layout_mode = 3

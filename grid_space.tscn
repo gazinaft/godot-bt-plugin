@@ -1,8 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://5l1sghv7oenq"]
+[gd_scene load_steps=16 format=3 uid="uid://5l1sghv7oenq"]
 
 [ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_ygnm8"]
-[ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_yfeis"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_72r4j"]
 [ext_resource type="PackedScene" uid="uid://cfnig6jtddiu3" path="res://addons/graph_nodes/leaf/leaf_node.tscn" id="3_75y7j"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="4_8ltja"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence_logic.gd" id="4_wf3dy"]
+[ext_resource type="PackedScene" uid="uid://codg4ls0l2ips" path="res://addons/graph_nodes/tree_control/sequence.tscn" id="5_73l3e"]
+[ext_resource type="PackedScene" uid="uid://but3rucgcr5kr" path="res://addons/graph_nodes/connection/node_connection.tscn" id="7_hpvbv"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector_ui.gd" id="7_xw64e"]
+[ext_resource type="Script" path="res://addons/graph_nodes/connection/node_connection.gd" id="9_wlvpy"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector_logic.gd" id="9_ymgaa"]
+[ext_resource type="PackedScene" uid="uid://chd585jtju0rm" path="res://addons/graph_nodes/tree_control/selector.tscn" id="10_8up45"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence_ui.gd" id="12_fs6uo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hoy1"]
+bg_color = Color(0.701961, 0.670588, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ducya"]
+bg_color = Color(0, 0.784314, 0.290196, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0.329412, 0.352941, 0.717647, 1)
 
 [node name="GridSpace2" type="Control"]
 layout_mode = 3
@@ -11,18 +29,113 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ygnm8")
 
-[node name="BaseLeaf__1" type="Control" parent="."]
+[node name="Selector" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("2_yfeis")
+script = ExtResource("9_ymgaa")
 
-[node name="LeafNode" parent="BaseLeaf__1" instance=ExtResource("3_75y7j")]
+[node name="Selector" type="PanelContainer" parent="Selector" instance=ExtResource("10_8up45")]
 layout_mode = 0
-offset_left = 699.156
-offset_top = 223.108
-offset_right = 849.156
-offset_bottom = 353.108
+offset_left = 619.0
+offset_top = 313.296
+offset_right = 769.0
+offset_bottom = 422.296
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0hoy1")
+script = ExtResource("7_xw64e")
+
+[node name="Sequence" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_wf3dy")
+
+[node name="Sequence" type="PanelContainer" parent="Sequence" instance=ExtResource("5_73l3e")]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 296.388
+offset_right = 350.0
+offset_bottom = 424.388
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ducya")
+script = ExtResource("12_fs6uo")
+
+[node name="BaseLeaf" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_72r4j")
+
+[node name="LeafNode" type="PanelContainer" parent="BaseLeaf" instance=ExtResource("3_75y7j")]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 84.0
+offset_right = 683.0
+offset_bottom = 158.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("4_8ltja")
+
+[node name="Sequence2" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_wf3dy")
+
+[node name="Sequence" type="PanelContainer" parent="Sequence2" instance=ExtResource("5_73l3e")]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 49.7296
+offset_right = 295.0
+offset_bottom = 177.73
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ducya")
+script = ExtResource("12_fs6uo")
+
+[node name="_Control_231594" type="Control" parent="." instance=ExtResource("7_hpvbv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_wlvpy")
+parent_base = NodePath("/root/@EditorNode@16921/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@109/MainScreen/@CanvasItemEditor@9851/@VSplitContainer@9678/@HSplitContainer@9680/@HSplitContainer@9682/@Control@9683/@SubViewportContainer@9684/@SubViewport@9685/GridSpace2/Sequence2")
+child_base = NodePath("/root/@EditorNode@16921/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@109/MainScreen/@CanvasItemEditor@9851/@VSplitContainer@9678/@HSplitContainer@9680/@HSplitContainer@9682/@Control@9683/@SubViewportContainer@9684/@SubViewport@9685/GridSpace2/Selector")
+is_connected = true
+
+[node name="_Control_232553" type="Control" parent="." instance=ExtResource("7_hpvbv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_wlvpy")
+parent_base = NodePath("../@Control@232553/root/@EditorNode@16921/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@109/MainScreen/@CanvasItemEditor@9851/@VSplitContainer@9678/@HSplitContainer@9680/@HSplitContainer@9682/@Control@9683/@SubViewportContainer@9684/@SubViewport@9685/GridSpace2/Sequence")
+child_base = NodePath("../@Control@232553/root/@EditorNode@16921/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@109/MainScreen/@CanvasItemEditor@9851/@VSplitContainer@9678/@HSplitContainer@9680/@HSplitContainer@9682/@Control@9683/@SubViewportContainer@9684/@SubViewport@9685/GridSpace2/BaseLeaf")
+is_connected = true
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="gui_input" from="Selector/Selector" to="Selector/Selector/Selectable" method="_on_gui_input" flags=18]
+[connection signal="mouse_entered" from="Selector/Selector" to="Selector/Selector" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Selector/Selector" to="Selector/Selector" method="_on_mouse_exited" flags=18]
+[connection signal="gui_input" from="Sequence/Sequence" to="Sequence/Sequence/Selectable" method="_on_gui_input" flags=18]
+[connection signal="mouse_entered" from="Sequence/Sequence" to="Sequence/Sequence" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Sequence/Sequence" to="Sequence/Sequence" method="_on_mouse_exited" flags=18]
+[connection signal="gui_input" from="BaseLeaf/LeafNode" to="BaseLeaf/LeafNode/Selectable" method="_on_gui_input" flags=18]
+[connection signal="mouse_entered" from="BaseLeaf/LeafNode" to="BaseLeaf/LeafNode" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="BaseLeaf/LeafNode" to="BaseLeaf/LeafNode" method="_on_mouse_exited" flags=18]
+[connection signal="gui_input" from="Sequence2/Sequence" to="Sequence2/Sequence/Selectable" method="_on_gui_input" flags=18]
+[connection signal="mouse_entered" from="Sequence2/Sequence" to="Sequence2/Sequence" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Sequence2/Sequence" to="Sequence2/Sequence" method="_on_mouse_exited" flags=18]

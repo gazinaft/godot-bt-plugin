@@ -1,5 +1,6 @@
 @tool
-class_name LeafNode
+
+class_name SelectorUI
 extends PanelContainer
 
 signal connection_start(l: Control)

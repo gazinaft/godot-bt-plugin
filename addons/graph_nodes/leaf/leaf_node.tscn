@@ -36,17 +36,9 @@ custom_minimum_size = Vector2(2.08165e-12, 15)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
+[node name="Label" type="Label" parent="VSplitContainer"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="VSplitContainer/Decorators"]
-layout_mode = 2
-text = "Decorator 1"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="VSplitContainer/Decorators"]
-layout_mode = 2
-text = "Decorator 2"
+text = "Leaf"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
@@ -54,10 +46,8 @@ layout_mode = 2
 theme_override_constants/separation = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
 
-[node name="Label" type="Label" parent="VSplitContainer"]
+[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
-text = "Leaf"
-horizontal_alignment = 1
 
 [node name="Control" type="CenterContainer" parent="VSplitContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 10)

@@ -3,9 +3,9 @@ extends Control
 class_name NodeConnection
 
 @export_node_path() var parent_base: NodePath
-var parent: LeafNode
+var parent: Control
 @export_node_path() var child_base: NodePath
-var child: LeafNode
+var child: Control
 var grph_autoload: GraphAutoload
 
 @onready var line_conn: LineConnection2D = $Line
@@ -24,7 +24,7 @@ func _ready():
 		_set_up_follow()
 
 
-func _start_connection(p: LeafNode):
+func _start_connection(p: Control):
 	parent = p
 	print("before point manipulation")
 	print("conn", line_conn)
@@ -37,7 +37,7 @@ func _start_connection(p: LeafNode):
 	print("node connection start")
 
 
-func _end_connection(c: LeafNode):
+func _end_connection(c: Control):
 	if (c == parent):
 		return
 	print(c)
