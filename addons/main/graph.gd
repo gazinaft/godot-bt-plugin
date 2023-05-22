@@ -85,6 +85,7 @@ func register_autoload():
 	ga._graph_canvas = graph_canvas_instance
 	scene_closed.connect(ga.remove_from_cache)
 	add_autoload_singleton(ConnectionManagerAutoload.NAME, "res://addons/autoload/connection_manager_autoload.gd")
+	add_resource_conversion_plugin(
 
 
 func unload_plugin():
