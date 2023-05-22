@@ -61,13 +61,30 @@ func select_in_tree(node):
 func _get_parallel_tree_node(node)->Node:
     var result = regex.search(node.get_path().get_concatenated_names())
 
+    if not result:
+        return null
+
     return edited_space_tree.get_parent().get_node_or_null(result.get_string())
 
 
 func _get_parallel_canvas_node(node)->Node:
     var result = regex_canvas.search(node.get_path().get_concatenated_names())
 
+    if not result:
+        return null
+    print(result.get_string())
     return edited_space_canvas.get_parent().get_node_or_null(result.get_string())
+
+
+func is_in_scene_tree(node):
+    var result = regex_canvas.search(node.get_path().get_concatenated_names())
+    return result != null
+
+
+func is_in_canvas_tree(node):
+    var result = regex.search(node.get_path().get_concatenated_names())
+    return result != null
+
 
 func remove_from_cache(path):
     if opened_scenes.has(path):

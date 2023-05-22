@@ -6,7 +6,7 @@ class_name NodeConnection
 var parent: LeafNode
 @export_node_path() var child_base: NodePath
 var child: LeafNode
-
+var grph_autoload: GraphAutoload
 
 @onready var line_conn: LineConnection2D = $Line
 @export var is_connected: bool = false
@@ -14,10 +14,15 @@ var child: LeafNode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	line_conn = get_node("Line")
-	if is_connected:
-		parent = get_node(GraphAutoload.PATH)._get_parallel_canvas_node(get_node(parent_base)).get_child(0)
-		child = get_node(GraphAutoload.PATH)._get_parallel_canvas_node(get_node(child_base)).get_child(0)
+	grph_autoload = get_node(GraphAutoload.PATH) as GraphAutoload
+	if is_connected and grph_autoload.is_in_canvas_tree(self):
+		print(parent_base)
+		print(child_base)
+		var tree_conn = grph_autoload._get_parallel_tree_node(self)
+		parent = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(parent_base)).get_child(0)
+		child = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(child_base)).get_child(0)
 		_set_up_follow()
+
 
 func _start_connection(p: LeafNode):
 	parent = p

@@ -29,3 +29,7 @@ window/stretch/scale=2.0
 [dotnet]
 
 project/assembly_name="ai-gui"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/main/plugin.cfg")
