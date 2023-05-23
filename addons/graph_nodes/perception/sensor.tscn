@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcftyfsfk1ysc"]
+
+[ext_resource type="Script" path="res://addons/graph_nodes/perception/sensor_ui.gd" id="1_cn8pj"]
+[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="3_yvsbd"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_6vth0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="Theme" id="Theme_elebl"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1pgqx"]
+color = Color(0.894118, 0.862745, 0.882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[node name="Sensor" type="PanelContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("1_cn8pj")
+
+[node name="VSplitContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme = SubResource("Theme_elebl")
+alignment = 1
+
+[node name="Header" type="Panel" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="VSplitContainer"]
+layout_mode = 2
+text = "Sensor"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
+
+[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="Draggable" type="Node" parent="."]
+script = ExtResource("3_yvsbd")
+rect_path = NodePath("..")
+
+[node name="Selectable" type="Node" parent="."]
+script = ExtResource("4_6vth0")
+
+[connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]

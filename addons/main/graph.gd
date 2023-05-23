@@ -50,7 +50,7 @@ func _set_state(state):
 
 
 func  _handles(object):
-	return object is GridSpace or object is BaseLeaf or object is NodeConnection or object is Selector or object is Sequence
+	return object is GridSpace or object is BaseLeaf or object is NodeConnection or object is Selector or object is Sequence or object is Sensor
 
 
 func _make_visible(visible):
@@ -78,6 +78,8 @@ func register_custom_types():
 	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
 	add_custom_type("Sequence", "Control", preload("res://addons/graph_nodes/tree_control/sequence_logic.gd"), preload("res://Sequence.png"))
 	add_custom_type("Selector", "Control", preload("res://addons/graph_nodes/tree_control/selector_logic.gd"), preload("res://Selector.png"))
+	add_custom_type("Sensor", "Control", preload("res://addons/graph_nodes/perception/sensor_logic.gd"), preload("res://Sensor.svg"))
+	
 
 
 
@@ -96,5 +98,6 @@ func unload_plugin():
 	remove_custom_type("BaseLeaf")
 	remove_custom_type("Sequence")
 	remove_custom_type("Selector")
+	remove_custom_type("Sensor")
 	remove_autoload_singleton(GraphAutoload.NAME)
 	remove_autoload_singleton(ConnectionManagerAutoload.NAME)
