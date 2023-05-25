@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfnig6jtddiu3"]
+[gd_scene load_steps=9 format=3 uid="uid://bdsy6muotnk4o"]
 
-[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_4l0cv"]
-[ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_rrmyv"]
-[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_nog34"]
-[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_xmptp"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_ye7hq"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_74xpj"]
+[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="3_4dy2r"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_8v3ip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.329412, 0.352941, 0.717647, 1)
@@ -23,7 +23,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
-script = ExtResource("1_rrmyv")
+script = ExtResource("1_ye7hq")
 
 [node name="VSplitContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(150, 2.08165e-12)
@@ -38,16 +38,6 @@ mouse_filter = 1
 
 [node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="VSplitContainer/Decorators"]
-layout_mode = 2
-text = "Decorator 1"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="VSplitContainer/Decorators"]
-layout_mode = 2
-text = "Decorator 2"
-horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
 layout_mode = 2
@@ -68,14 +58,14 @@ material = SubResource("ShaderMaterial_yqkwa")
 custom_minimum_size = Vector2(40, 15)
 layout_mode = 2
 action_mode = 0
-script = ExtResource("2_nog34")
+script = ExtResource("2_74xpj")
 
 [node name="Draggable" type="Node" parent="."]
-script = ExtResource("1_4l0cv")
-rect_path = NodePath("..")
+script = ExtResource("3_4dy2r")
+rect_path = NodePath("../VSplitContainer/Header")
 
 [node name="Selectable" type="Node" parent="."]
-script = ExtResource("4_xmptp")
+script = ExtResource("4_8v3ip")
 
 [connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2seano8j7inn"]
+[gd_scene load_steps=2 format=3 uid="uid://bhpy844l65ha7"]
 
-[ext_resource type="Script" path="res://addons/utility/line_connection/sigmoid/sigmoid.gd" id="1_jp45o"]
+[ext_resource type="Script" path="res://addons/utility/line_connection/sigmoid/sigmoid.gd" id="1_6eqk4"]
 
 [node name="Sigmoid" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_jp45o")
+script = ExtResource("1_6eqk4")
+line_width = 0.1
 sigmoid_scale = Vector2(10, 10)

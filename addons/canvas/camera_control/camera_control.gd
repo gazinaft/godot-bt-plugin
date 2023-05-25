@@ -1,11 +1,14 @@
 @tool
 extends Node
+class_name CameraControl
 
 @export var pan_gesture_strength: float = 3
 
 @export var min_zoom: float = 1;
 @export var max_zoom: float = 5;
 @export var mouse_delta_zoom: float = 0.03;
+
+var zoom: float
 
 signal zoom_changed
 

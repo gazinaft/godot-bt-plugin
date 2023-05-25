@@ -2,9 +2,6 @@
 class_name LeafNode
 extends PanelContainer
 
-signal connection_start(l: LeafNode)
-signal connection_end(l: LeafNode)
-
 @onready var draggable_node: DraggableNode = $Draggable
 
 func _get_anchor_for_children():
@@ -12,7 +9,6 @@ func _get_anchor_for_children():
 
 func _get_anchor_for_parents():
 	return position + Vector2(size.x/2, 0)
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

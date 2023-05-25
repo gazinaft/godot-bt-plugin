@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3cekmsvdahv4"]
+[gd_scene load_steps=4 format=3 uid="uid://cdm02kdvfbnex"]
 
-[ext_resource type="Script" path="res://addons/utility/line_connection/line_connection_2d.gd" id="1_1e4ig"]
-[ext_resource type="PackedScene" uid="uid://csqgon2316quv" path="res://addons/utility/line_connection/named_point/named_point.tscn" id="2_2ewm3"]
-[ext_resource type="PackedScene" uid="uid://d2seano8j7inn" path="res://addons/utility/line_connection/sigmoid/sigmoid.tscn" id="2_bda6g"]
+[ext_resource type="Script" path="res://addons/utility/line_connection/line_connection_2d.gd" id="1_83wdq"]
+[ext_resource type="PackedScene" uid="uid://bhpy844l65ha7" path="res://addons/utility/line_connection/sigmoid/sigmoid.tscn" id="2_jbhcx"]
+[ext_resource type="PackedScene" uid="uid://cflc5iatumm5n" path="res://addons/utility/line_connection/named_point/named_point.tscn" id="3_o3nfi"]
 
 [node name="LineConnection2D" type="Control"]
 layout_mode = 3
@@ -11,43 +11,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1e4ig")
+script = ExtResource("1_83wdq")
 
-[node name="Sigmoid" parent="." instance=ExtResource("2_bda6g")]
-layout_mode = 0
-offset_left = 204.5
-offset_top = 84.0
-offset_right = 204.5
-offset_bottom = 84.0
-line_width = 5.0
-sigmoid_scale = Vector2(151, 61)
-rotation_angle = 90
-
-[node name="PointA" parent="." instance=ExtResource("2_2ewm3")]
+[node name="PointA" parent="." instance=ExtResource("3_o3nfi")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 114.0
-offset_top = 8.0
-offset_right = 144.0
-offset_bottom = 38.0
+offset_left = 13.0
+offset_top = 21.0
+offset_right = 43.0
+offset_bottom = 51.0
 grow_horizontal = 1
 grow_vertical = 1
+letter = "A"
 
-[node name="PointB" parent="." instance=ExtResource("2_2ewm3")]
+[node name="PointB" parent="." instance=ExtResource("3_o3nfi")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 265.0
-offset_top = 130.0
-offset_right = 295.0
-offset_bottom = 160.0
+offset_left = 335.0
+offset_top = 200.0
+offset_right = 365.0
+offset_bottom = 230.0
 grow_horizontal = 1
 grow_vertical = 1
 letter = "B"
+
+[node name="Sigmoid" parent="." instance=ExtResource("2_jbhcx")]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 125.5
+offset_right = 189.0
+offset_bottom = 125.5
+line_width = 4.0
+sigmoid_scale = Vector2(322, 89.5)
+rotation_angle = 90

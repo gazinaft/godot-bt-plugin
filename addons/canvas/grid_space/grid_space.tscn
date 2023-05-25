@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://d4dc0xjjb8wtd"]
 
-[ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_wvefv"]
-[ext_resource type="PackedScene" path="res://addons/graph_nodes/leaf/base_leaf.tscn" id="2_noepl"]
+[ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_yg4o7"]
 
 [node name="GridSpace" type="Control"]
 layout_mode = 3
@@ -10,11 +9,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wvefv")
-
-[node name="LeafNode" parent="." instance=ExtResource("2_noepl")]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 200.0
-offset_right = 350.0
-offset_bottom = 325.0
+script = ExtResource("1_yg4o7")

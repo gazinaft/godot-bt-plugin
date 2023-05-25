@@ -36,11 +36,13 @@ func edit_space(space: GridSpace):
         _graph_canvas.clear_space()
         return
 
-    if not opened_scenes.has(space.scene_file_path):
-        opened_scenes[space.scene_file_path] = space.duplicate()
-
+    edited_space_canvas = GridSpace.new()
+    edited_space_canvas.name = space.name
+    
     edited_space_tree = space
-    edited_space_canvas = opened_scenes[space.scene_file_path]
+
+    print("EDITED SPACE: ", edited_space_tree)
+    print("EDITED CANVAS: ", edited_space_canvas)
 
     _graph_canvas.add_space(edited_space_canvas)
 
@@ -59,20 +61,27 @@ func select_in_tree(node):
 
 
 func _get_parallel_tree_node(node)->Node:
+    if node == null:
+        return null
+    #print("_get_parallel_tree_node: ", node.get_path().get_concatenated_names())
     var result = regex.search(node.get_path().get_concatenated_names())
 
     if not result:
         return null
 
-    return edited_space_tree.get_parent().get_node_or_null(result.get_string())
+
+    var n = edited_space_tree.get_parent().get_node_or_null(result.get_string())
+
+    return n
 
 
 func _get_parallel_canvas_node(node)->Node:
+    #print("_get_parallel_canvas_node: ", node.get_path().get_concatenated_names())
     var result = regex_canvas.search(node.get_path().get_concatenated_names())
 
-    if not result:
+    if not result or not edited_space_canvas:
         return null
-    print(result.get_string())
+        
     return edited_space_canvas.get_parent().get_node_or_null(result.get_string())
 
 
@@ -87,5 +96,7 @@ func is_in_canvas_tree(node):
 
 
 func remove_from_cache(path):
+    print(path)
     if opened_scenes.has(path):
+        print("REMOVED: ", path)
         opened_scenes.erase(path)

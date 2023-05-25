@@ -3,7 +3,12 @@ class_name GridSpace
 extends Control
 
 var is_save_required: bool = false
+var grph_autoload: GraphAutoload
 
+
+func _ready():
+	grph_autoload = get_node(GraphAutoload.PATH)
+	
 
 func _process(delta):
 	if is_save_required:
@@ -30,18 +35,30 @@ func save_space():
 	#get_node(GraphAutoload.PATH)._editor_interface.save_scene()
 
 
+# func _on_node_added(node):
+# 	if node is NodeConnection or not grph_autoload.is_in_scene_tree(self):
+# 		return
 
-func _on_child_entered_tree(node:Node):
-	var grph_autoload = get_node(GraphAutoload.PATH)
-	if node is NodeConnection or not grph_autoload.is_in_scene_tree(self):
-		return
-
-	grph_autoload.edited_space_canvas.add_child(node.duplicate())
+# 	grph_autoload._get_parallel_canvas_node(node.get_parent()).add_child(node.duplicate())
 
 
-func _on_child_exiting_tree(node:Node):
-	var grph_autoload = get_node(GraphAutoload.PATH)
+# func _on_node_removed(node):
+# 	var dd = grph_autoload._get_parallel_canvas_node(node)
+# 	dd.get_parent().remove_child(dd)
+# 	dd.queue_free()
 
-	var dd = grph_autoload._get_parallel_canvas_node(node)
-	grph_autoload.edited_space_canvas.remove_child(grph_autoload._get_parallel_canvas_node(node))
+
+# func _on_child_entered_tree(node:Node):
+# 	if node is NodeConnection or not grph_autoload.is_in_scene_tree(self):
+# 		return
+
+# 	grph_autoload.edited_space_canvas.add_child.call_deferred(node.duplicate())
+
+
+# func _on_child_exiting_tree(node:Node):
+# 	var dd = grph_autoload._get_parallel_canvas_node(node)
+# 	if not dd:
+# 		return
+# 	grph_autoload.edited_space_canvas.remove_child(dd)
+# 	dd.queue_free()
  

@@ -22,7 +22,9 @@ func _on_gui_input(event:InputEvent):
 			is_being_dragged = false
 	if event is InputEventMouseMotion and is_being_dragged:
 		var node_to_move = get_parent()
-		get_node(GraphAutoload.PATH).sync_changes(node_to_move, func(node): move_node(node, event))
+		move_node(get_parent(), event)
+
+		get_node(GraphAutoload.PATH)._get_parallel_tree_node(get_parent().get_parent()).position = get_parent().position
 
 
 func move_node(node_to_move: Control, move: InputEventMouseMotion):

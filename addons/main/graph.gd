@@ -3,12 +3,43 @@ extends EditorPlugin
 
 const grphCanvas = preload("res://addons/canvas/graph_canvas.tscn")
 var graph_canvas_instance: GraphCanvas
+var grph_autoload: GraphAutoload
 
 func _enter_tree():
+	var editor_interface = get_editor_interface()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	instantiate_canvas()
 	register_autoload()
 	register_custom_types()
-
 
 func _apply_changes():
 	get_node(GraphAutoload.PATH).apply_changes.emit()
@@ -23,40 +54,32 @@ func _has_main_screen():
 	return true
 
 
+func _get_space(n):
+	if n == null:
+		return null
+	if n is GridSpace:
+		return n
+	return _get_space(n.get_parent())
+
 func _edit(object):
 	if object != null and not _handles(object):
+		get_node(GraphAutoload.PATH).edit_space(null)
 		return
 
-	print("EDITING:",object)
-	var get_space = func (n):
-		if n == null:
-			return null
-		if n is GridSpace:
-			return n
-		return n.get_parent()
-
-	var space = get_space.call(object)
+	var space = _get_space(object)
 	
 	get_node(GraphAutoload.PATH).edit_space(space)
 
 
-func _get_state()->Dictionary:
-	return graph_canvas_instance.get_state()
-
-
-func _set_state(state):
-	graph_canvas_instance.set_state(state)
-
-
-
 func  _handles(object):
-	return object is GridSpace or object is BaseLeaf or object is NodeConnection
+	return object is GridSpace or object is BaseLeaf or object is NodeConnection or object is BaseDecorator
 
 
 func _make_visible(visible):
-	if graph_canvas_instance:
-		graph_canvas_instance.visible = visible
-		update_overlays()
+	if visible:
+		graph_canvas_instance.show()
+	else:
+		graph_canvas_instance.hide()
 
 
 func _get_plugin_name():
@@ -69,23 +92,24 @@ func _get_plugin_icon():
 
 func instantiate_canvas():
 	graph_canvas_instance = grphCanvas.instantiate()
+	graph_canvas_instance.editor_interface = get_editor_interface()
 	get_editor_interface().get_editor_main_screen().add_child(graph_canvas_instance)
 	_make_visible(false)
-
+	
 
 func register_custom_types():
 	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://circle-ai.png"))
 	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
+	add_custom_type("BaseDecorator", "Control", preload("res://addons/graph_nodes/decorator/base_decorator.gd"), preload("res://circle-ai.png"))
 
 
 func register_autoload():
 	add_autoload_singleton(GraphAutoload.NAME, "res://addons/autoload/graph_autoload.gd")
-	var ga = get_node(GraphAutoload.PATH)
-	ga._editor_interface = get_editor_interface()
-	ga._graph_canvas = graph_canvas_instance
-	scene_closed.connect(ga.remove_from_cache)
+	grph_autoload = get_node(GraphAutoload.PATH)
+	grph_autoload._editor_interface = get_editor_interface()
+	grph_autoload._graph_canvas = graph_canvas_instance
+	scene_closed.connect(grph_autoload.remove_from_cache)
 	add_autoload_singleton(ConnectionManagerAutoload.NAME, "res://addons/autoload/connection_manager_autoload.gd")
-	add_resource_conversion_plugin(
 
 
 func unload_plugin():

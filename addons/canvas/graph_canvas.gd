@@ -3,11 +3,13 @@ class_name GraphCanvas
 extends VBoxContainer
 
 var current_space: GridSpace
+var editor_interface: EditorInterface
 
 @onready var viewport = $SubViewportContainer/SubViewport
 @onready var camera: Camera2D = $SubViewportContainer/SubViewport/Camera2D
 
 func add_space(space: GridSpace):
+	print("ADD SPACE: ", current_space, space)
 	clear_space()
 
 	if space == null:
@@ -18,11 +20,11 @@ func add_space(space: GridSpace):
 	
 
 func clear_space():
-	for i in viewport.get_child_count():
-		var child = viewport.get_child(i)
-		if child is GridSpace:
-			viewport.remove_child(child)
-
+	print("CLEAR SPACE: ", current_space)
+	if current_space == null:
+		return
+	viewport.remove_child(current_space)
+	current_space.queue_free()
 	current_space = null
 
 
