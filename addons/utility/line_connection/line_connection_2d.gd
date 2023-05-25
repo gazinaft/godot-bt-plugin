@@ -25,6 +25,6 @@ func adjust_sigmoid():
 		sigmoid.rotation_angle = 90
 		sigmoid.sigmoid_scale.y /= 2
 	else:
-		sigmoid.rotation_angle = 180
-		sigmoid.sigmoid_scale.x /= 2
+		sigmoid.sigmoid_scale.y /= -2
+		
 
