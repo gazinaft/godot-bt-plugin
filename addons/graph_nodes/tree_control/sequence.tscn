@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdsy6muotnk4o"]
+[gd_scene load_steps=10 format=3 uid="uid://codg4ls0l2ips"]
 
-[ext_resource type="Script" path="res://addons/graph_nodes/leaf/leaf_node.gd" id="1_ye7hq"]
-[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_74xpj"]
-[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="3_4dy2r"]
-[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_8v3ip"]
+[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_ikgti"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence_ui.gd" id="1_w0suy"]
+[ext_resource type="Texture2D" uid="uid://chugphst15v2l" path="res://arrow.svg" id="2_fdawx"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_l43sq"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_5kwut"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
-bg_color = Color(0.329412, 0.352941, 0.717647, 1)
+bg_color = Color(0, 0.784314, 0.290196, 1)
 
 [sub_resource type="Theme" id="Theme_elebl"]
 
@@ -16,12 +17,14 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 4
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yqkwa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ocnha"]
 
-[node name="LeafNode" type="PanelContainer"]
-mouse_filter = 1
+[node name="Sequence" type="PanelContainer"]
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
-script = ExtResource("1_ye7hq")
+script = ExtResource("1_w0suy")
 
 [node name="VSplitContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(150, 2.08165e-12)
@@ -30,13 +33,21 @@ theme = SubResource("Theme_elebl")
 alignment = 1
 
 [node name="Header" type="Panel" parent="VSplitContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 30)
+custom_minimum_size = Vector2(2.08165e-12, 15)
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Label" type="Label" parent="VSplitContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+text = "Sequence"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VSplitContainer"]
+custom_minimum_size = Vector2(4.495, 47.72)
+layout_mode = 2
+texture = ExtResource("2_fdawx")
+expand_mode = 2
+stretch_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
 layout_mode = 2
@@ -45,26 +56,24 @@ theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
 
 [node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
-text = "Leaf"
-horizontal_alignment = 1
 
 [node name="Control" type="CenterContainer" parent="VSplitContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 10)
 layout_mode = 2
 
 [node name="ConnectionButton" type="Button" parent="VSplitContainer/Control"]
-material = SubResource("ShaderMaterial_yqkwa")
-custom_minimum_size = Vector2(40, 15)
+material = SubResource("ShaderMaterial_ocnha")
+custom_minimum_size = Vector2(100, 18)
 layout_mode = 2
 action_mode = 0
-script = ExtResource("2_74xpj")
+script = ExtResource("2_l43sq")
 
 [node name="Draggable" type="Node" parent="."]
-script = ExtResource("3_4dy2r")
-rect_path = NodePath("../VSplitContainer/Header")
+script = ExtResource("1_ikgti")
+rect_path = NodePath("..")
 
 [node name="Selectable" type="Node" parent="."]
-script = ExtResource("4_8v3ip")
+script = ExtResource("4_5kwut")
 
 [connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

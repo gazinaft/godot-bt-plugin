@@ -2,10 +2,10 @@
 extends Control
 class_name NodeConnection
 
-@export var parent_base: NodePath
-var parent: LeafNode
-@export var child_base: NodePath
-var child: LeafNode
+@export_node_path() var parent_base: NodePath
+var parent: Control
+@export_node_path() var child_base: NodePath
+var child: Control
 var grph_autoload: GraphAutoload
 
 @onready var line_conn: LineConnection2D = $Line
@@ -36,7 +36,7 @@ func _process(delta):
 			queue_free()
 
 
-func _start_connection(p: LeafNode):
+func _start_connection(p: Control):
 	parent = p
 	line_conn.point_a.position = parent._get_anchor_for_children()
 
@@ -46,7 +46,7 @@ func _start_connection(p: LeafNode):
 	line_conn.adjust_sigmoid()
 
 
-func _end_connection(c: LeafNode):
+func _end_connection(c: Control):
 	child = c
 	line_conn.point_b.position = child._get_anchor_for_parents()
 	
