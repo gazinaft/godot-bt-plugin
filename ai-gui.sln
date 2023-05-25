@@ -2,6 +2,12 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ai-gui", "ai-gui.csproj", "{5A4B7205-C9DF-4594-B1BE-323B0838BCA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionMaking", "..\godot-ai-tools\godot-ai-framework\DecisionMaking\DecisionMaking.csproj", "{A1C29F16-6AA9-4569-B06E-3CC1B1584023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEntities", "..\godot-ai-tools\godot-ai-framework\CoreEntities\CoreEntities.csproj", "{D00B52FC-18C2-4FEF-A220-76316B259E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Direction", "..\godot-ai-tools\godot-ai-framework\Direction\Direction.csproj", "{E488AFFF-5407-425C-8AC5-AFA0E79F8C10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU

@@ -23,36 +23,41 @@ func _ready():
 	request_ready()
 
 func _process(delta):
-	if (parent == null or child == null) and is_connected:
-		get_parent().remove_child(self)
-		queue_free()
+	if grph_autoload.is_in_scene_tree(self) and not grph_autoload._get_parallel_canvas_node(self):
+		grph_autoload._get_parallel_canvas_node(get_parent()).add_child(self.duplicate())
+
+	if grph_autoload.is_in_canvas_tree(self):
+		if (parent == null or child == null) and is_connected:
+			get_parent().remove_child(self)
+			queue_free()
+	else:
+		if not (has_node(parent_base) and has_node(child_base)) and is_connected:
+			get_parent().remove_child(self)
+			queue_free()
+
 
 func _start_connection(p: LeafNode):
 	parent = p
-	print("before point manipulation")
-	print("conn", line_conn)
 	line_conn.point_a.position = parent._get_anchor_for_children()
 
 	line_conn.point_b.position = get_local_mouse_position()
-	p.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(x/2))
+	p.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(x))
 	
 	line_conn.adjust_sigmoid()
-	print("node connection start")
 
 
 func _end_connection(c: LeafNode):
-	if (c == parent):
-		return
-	print(c)
-
 	child = c
 	line_conn.point_b.position = child._get_anchor_for_parents()
 	
-	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(x/2))
-	
-	print("node connection end")
-	print("parent is", parent.name)
-	print("child is", child.name)
+	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(x))
+
+
+func _exit_tree():
+	if grph_autoload.is_in_scene_tree(self):
+		var bl = grph_autoload._get_parallel_canvas_node(self)
+		bl.get_parent().remove_child(bl)
+		bl.queue_free()
 
 
 func _input(event):

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://doxl5xex0sv7h"]
+[gd_scene load_steps=4 format=3 uid="uid://doxl5xex0sv7h"]
 
 [ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_xpj8l"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="2_0th24"]
+[ext_resource type="PackedScene" uid="uid://cuuscipua8mvs" path="res://addons/graph_nodes/connection/node_connection.tscn" id="3_r0j64"]
 
 [node name="GridSpace" type="Control"]
 layout_mode = 3
@@ -12,24 +13,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xpj8l")
 
-[node name="BaseLeaf3" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 854.0
-offset_top = 214.0
-offset_right = 894.0
-offset_bottom = 254.0
-script = ExtResource("2_0th24")
-
 [node name="BaseLeaf" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 192.0
-offset_top = 50.0
-offset_right = 232.0
-offset_bottom = 90.0
+offset_left = 857.652
+offset_top = 162.0
+offset_right = 897.652
+offset_bottom = 202.0
 script = ExtResource("2_0th24")
 
 [node name="BaseLeaf2" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 424.455
+offset_top = 510.0
+offset_right = 464.455
+offset_bottom = 550.0
 script = ExtResource("2_0th24")
+
+[node name="BaseLeaf3" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1321.19
+offset_top = 523.074
+offset_right = 1361.19
+offset_bottom = 563.074
+script = ExtResource("2_0th24")
+
+[node name="BaseLeaf_BaseLeaf3" parent="." instance=ExtResource("3_r0j64")]
+layout_mode = 1
+parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/GridSpace/BaseLeaf")
+child_base = NodePath("../BaseLeaf3")
+is_connected = true
+
+[node name="BaseLeaf_BaseLeaf2" parent="." instance=ExtResource("3_r0j64")]
+layout_mode = 1
+parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/GridSpace/BaseLeaf")
+child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/GridSpace/BaseLeaf2")
+is_connected = true

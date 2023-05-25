@@ -26,12 +26,7 @@ func _ready():
 		leaf.get_node("VSplitContainer/Label").text = name
 		leaf.position = b_leaf.position
 		add_child(leaf)
-
-		for i in range(b_leaf.get_child_count()):
-			var c = b_leaf.get_child(i)
-			if not c is BaseDecorator:
-				continue
-			c.add_canvas_decorator(self)
+		
 	request_ready()
 
 
@@ -41,7 +36,6 @@ func _process(delta):
 
 
 func _on_renamed():
-
 	var canvas_leaf = grph_autoload._get_parallel_canvas_node(get_parent()).get_node(old_name)
 	canvas_leaf.name = name
 	canvas_leaf.get_node("LeafNode/VSplitContainer/Label").text = name
@@ -53,22 +47,3 @@ func _exit_tree():
 		var bl = grph_autoload._get_parallel_canvas_node(self)
 		bl.get_parent().remove_child(bl)
 		bl.queue_free()
-
-
-# func _hide():
-# 	if not grph_autoload.is_in_scene_tree(self):
-# 		return
-
-# 	leaf = get_node("LeafNode")
-# 	remove_child(leaf)
-	
-# 	add_child(leaf, false, INTERNAL_MODE_FRONT)
-	
-
-# func _exit_tree():
-# 	leaf.owner = get_parent() 
-
-
-# func on_changes_applied():
-# 	leaf.owner = get_parent() 
-# 	_hide.call_deferred()

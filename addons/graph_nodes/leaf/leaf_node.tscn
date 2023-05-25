@@ -19,8 +19,6 @@ thickness = 4
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yqkwa"]
 
 [node name="LeafNode" type="PanelContainer"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
 script = ExtResource("1_ye7hq")
@@ -32,12 +30,13 @@ theme = SubResource("Theme_elebl")
 alignment = 1
 
 [node name="Header" type="Panel" parent="VSplitContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 15)
+custom_minimum_size = Vector2(2.08165e-12, 30)
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
 layout_mode = 2

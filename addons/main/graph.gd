@@ -101,6 +101,7 @@ func register_custom_types():
 	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://circle-ai.png"))
 	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
 	add_custom_type("BaseDecorator", "Control", preload("res://addons/graph_nodes/decorator/base_decorator.gd"), preload("res://circle-ai.png"))
+	add_custom_type("ConnectionNode", "Control", preload("res://addons/graph_nodes/connection/node_connection.gd"), preload("res://circle-ai.png"))
 
 
 func register_autoload():
