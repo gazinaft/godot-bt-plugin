@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3omrxn00n84w"
-path="res://.godot/imported/Sensor.svg-54bba243d4d6c2ee8286866fcaba52f7.ctex"
+uid="uid://b0tse07qax0wk"
+path="res://.godot/imported/circle-ai.png-7d6e35d36e18edeadf16f0867102267f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sensor.svg"
-dest_files=["res://.godot/imported/Sensor.svg-54bba243d4d6c2ee8286866fcaba52f7.ctex"]
+source_file="res://icons/circle-ai.png"
+dest_files=["res://.godot/imported/circle-ai.png-7d6e35d36e18edeadf16f0867102267f.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

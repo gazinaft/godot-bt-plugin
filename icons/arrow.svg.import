@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0tse07qax0wk"
-path="res://.godot/imported/circle-ai.png-f0b8d570202121a1d7c7bb2745cf7f40.ctex"
+uid="uid://chugphst15v2l"
+path="res://.godot/imported/arrow.svg-3f925c5a5020c4cdc3d7e114f02a9288.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://circle-ai.png"
-dest_files=["res://.godot/imported/circle-ai.png-f0b8d570202121a1d7c7bb2745cf7f40.ctex"]
+source_file="res://icons/arrow.svg"
+dest_files=["res://.godot/imported/arrow.svg-3f925c5a5020c4cdc3d7e114f02a9288.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

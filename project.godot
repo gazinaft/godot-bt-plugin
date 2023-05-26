@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GrphAutoload="*res://addons/autoload/graph_autoload.gd"
 CMAutoload="*res://addons/autoload/connection_manager_autoload.gd"
+GrphAutoload="*res://addons/autoload/graph_autoload.gd"
 
 [display]
 

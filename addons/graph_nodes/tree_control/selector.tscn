@@ -1,19 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://chd585jtju0rm"]
+[gd_scene load_steps=11 format=3 uid="uid://chd585jtju0rm"]
 
 [ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector_ui.gd" id="1_5b7q2"]
 [ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_j5phq"]
 [ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="1_ybdvk"]
+[ext_resource type="LabelSettings" uid="uid://crsjbqbynieby" path="res://addons/graph_nodes/leaf/lavbel_settings.tres" id="2_xxr1x"]
 [ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="3_iwc0h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
 bg_color = Color(0.701961, 0.670588, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="Theme" id="Theme_elebl"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_te7br"]
-line_spacing = 0.0
-font_size = 20
-shadow_size = 0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3cj4"]
+bg_color = Color(0.341176, 0.329412, 0.0588235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_1pgqx"]
 color = Color(0.894118, 0.862745, 0.882353, 1)
@@ -23,7 +30,7 @@ thickness = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_le6ci"]
 
-[node name="Selector" type="PanelContainer"]
+[node name="LeafNode" type="PanelContainer"]
 scale = Vector2(1, 1.00544)
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -37,14 +44,23 @@ theme = SubResource("Theme_elebl")
 alignment = 1
 
 [node name="Header" type="Panel" parent="VSplitContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 15)
+custom_minimum_size = Vector2(2.08165e-12, 30)
 layout_mode = 2
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_m3cj4")
+
+[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
 
 [node name="Label" type="Label" parent="VSplitContainer"]
 layout_mode = 2
 text = "Selector"
-label_settings = SubResource("LabelSettings_te7br")
+label_settings = ExtResource("2_xxr1x")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -52,15 +68,8 @@ vertical_alignment = 1
 layout_mode = 2
 text = "?
 "
+label_settings = ExtResource("2_xxr1x")
 horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
-layout_mode = 2
-theme_override_constants/separation = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
-
-[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
-layout_mode = 2
 
 [node name="Control" type="CenterContainer" parent="VSplitContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 10)
@@ -68,7 +77,7 @@ layout_mode = 2
 
 [node name="ConnectionButton" type="Button" parent="VSplitContainer/Control"]
 material = SubResource("ShaderMaterial_le6ci")
-custom_minimum_size = Vector2(100, 18)
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 action_mode = 0
 script = ExtResource("1_ybdvk")

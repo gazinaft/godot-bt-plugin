@@ -41,7 +41,7 @@ func _start_connection(p: Control):
 	line_conn.point_a.position = parent._get_anchor_for_children()
 
 	line_conn.point_b.position = get_local_mouse_position()
-	p.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(x))
+	p.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(parent._get_anchor_for_children()))
 	
 	line_conn.adjust_sigmoid()
 
@@ -50,7 +50,7 @@ func _end_connection(c: Control):
 	child = c
 	line_conn.point_b.position = child._get_anchor_for_parents()
 	
-	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(x))
+	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(child._get_anchor_for_parents()))
 
 
 func _exit_tree():
@@ -63,14 +63,14 @@ func _exit_tree():
 func _input(event):
 	if event is InputEventMouseMotion and !is_connected:
 		var motion = event as InputEventMouseMotion
-		line_conn.point_b._on_follow_point_moved(motion.relative/grph_autoload._graph_canvas.camera.zoom)
+		line_conn.point_b._on_follow_point_moved(get_local_mouse_position())
 
 
 func _set_up_follow():
 	line_conn.point_b.position = child._get_anchor_for_parents()
-	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(x))
+	child.draggable_node.moved.connect(func(x): line_conn.point_b._on_follow_point_moved(child._get_anchor_for_parents()))
 	line_conn.point_a.position = parent._get_anchor_for_children()
-	parent.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(x))
+	parent.draggable_node.moved.connect(func(x): line_conn.point_a._on_follow_point_moved(parent._get_anchor_for_children()))
 	line_conn.adjust_sigmoid()
 
 

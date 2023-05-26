@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1gq1qxxa08fi"
-path="res://.godot/imported/Selector.png-6d5958f644794fd75f920decb80783d3.ctex"
+uid="uid://b7nxuehewcahb"
+path="res://.godot/imported/GridSpace.svg-d76971b9f3f6ae85f9c766e8b4a565e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Selector.png"
-dest_files=["res://.godot/imported/Selector.png-6d5958f644794fd75f920decb80783d3.ctex"]
+source_file="res://icons/GridSpace.svg"
+dest_files=["res://.godot/imported/GridSpace.svg-d76971b9f3f6ae85f9c766e8b4a565e7.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

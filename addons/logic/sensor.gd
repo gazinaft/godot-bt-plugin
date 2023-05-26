@@ -1,5 +1,5 @@
 extends Node
-class_name Sensor
+class_name SensorLogic
 
 var bb: BlackBoard
 

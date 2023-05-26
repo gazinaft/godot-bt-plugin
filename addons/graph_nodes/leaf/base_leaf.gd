@@ -1,5 +1,5 @@
 @tool
-class_name BaseLeaf
+class_name Leaf
 extends Control
 
 var scene = preload("res://addons/graph_nodes/leaf/leaf_node.tscn")
