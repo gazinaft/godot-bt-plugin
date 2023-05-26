@@ -43,8 +43,8 @@ public partial class Bridge : Node
 	{
 		return gridSpace.GetChildren()
 			.Where(x => x.IsClass("Sensor")) // TODO: change "Sensor" to appropriate classname because sensor stores logic, not ref to it
-			.Select(x => x.Get("leaf_logic"))
-			.Select(x => new SensorWrapper(bb, LoadGdNode((string)x)));
+			.Select(LoadLinkedGdNode)
+			.Select(x => new SensorWrapper(bb, x));
 	}
 
 	private List<Node> GetTreeChildren(Node node)
@@ -56,28 +56,39 @@ public partial class Bridge : Node
 	{
 		return null;
 	}
+
+	private TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, Blackboard bb)
+	{
+		if (decorators.Count == 0) return treeTask;
+
+		var node = decorators[0];
+		return new Decorator(new DecoratorWrapper(bb, LoadLinkedGdNode(node)),
+			DecorateTreeTask(decorators.Skip(1).ToList(), treeTask, bb));
+	}
 	
 	private TreeTask BuildBlock(Node node, BehaviorTree tree, Blackboard bb)
 	{
+		var decorators = node.GetChildren().Where(x => x.IsClass("Decorator")).ToList();
+		
 		if (node.IsClass("BaseLeaf"))
 		{
-			return new Leaf(new LeafLogicWrapper(node));
+			return DecorateTreeTask(decorators, new Leaf(new LeafLogicWrapper(node)), bb);
 		}
 		
 		var treeTasks = GetTreeChildren(node).Select(x => BuildBlock(x, tree, bb)).ToList();
 
-		return node.GetClass() switch
+		return DecorateTreeTask(decorators, node.GetClass() switch
 		{
-			"Decorator" => new Decorator(new DecoratorWrapper(bb, node), treeTasks[0]),
 			"Selector" => new Selector(treeTasks),
 			"Sequence" => new Sequence(treeTasks, tree),
 			_ => throw new InvalidEnumArgumentException("Tree can only consist of tree nodes, but gotten class " +
 			                                            node.GetClass())
-		};
+		}, bb);
 	}
 
-	private Node LoadGdNode(string path)
+	private Node LoadLinkedGdNode(Node node)
 	{
+		var path = (string)node.Get("leaf_logic");
 		// TODO: separate logic nodes and nodes, which store paths to logic everywhere here
 		var script = (GDScript)GD.Load(path);
 		return (Node) script.New();
