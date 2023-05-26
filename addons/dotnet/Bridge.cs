@@ -24,15 +24,20 @@ public partial class Bridge : Node
 		
 	}
 
+	private Dictionary<Node, List<Node>> _hierarchy;
+
 	private Node CreateAiNode()
 	{
 		var gridSpace = GetNode("GridSpace");
+		var connections = gridSpace.GetChildren()
+			.Where(x => x.IsClass("NodeConnection")).ToList();
+		_hierarchy = GetHierarchy(connections);
 		
 		var actionManager = new ActionManager();
 		var tree = new BehaviorTree();
 		var bb = new BlackboardWrapper(new Node());
-
-		var rootNode = GetRoot();
+		
+		var rootNode = GetRoot(_hierarchy);
 
 		tree.Root = BuildBlock(rootNode, tree, bb);
 		
@@ -49,12 +54,39 @@ public partial class Bridge : Node
 
 	private List<Node> GetTreeChildren(Node node)
 	{
-		return new List<Node>();
+		return _hierarchy[node];
 	}
 
-	private Node GetRoot()
+	private Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
 	{
-		return null;
+		var res = new Dictionary<Node, List<Node>>();
+		foreach (var connection in connections)
+		{
+			var parent = GetNode((NodePath)connection.Get("parent_base"));
+			var child = GetNode((NodePath)connection.Get("child_base"));
+
+			if (res.TryGetValue(parent, out var re))
+			{
+				re.Add(child);
+			}
+			else
+			{
+				res[parent] = new List<Node> { child };
+			}
+		}
+
+		return res;
+	}
+
+	private Node GetRoot(Dictionary<Node, List<Node>> hierarchy)
+	{
+		var nonRoots = new HashSet<Node>();
+		foreach (var value in hierarchy.Values)
+		{
+			nonRoots.UnionWith(value);
+		}
+
+		return hierarchy.Keys.First(x => !nonRoots.Contains(x));
 	}
 
 	private TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, Blackboard bb)
