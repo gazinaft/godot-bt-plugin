@@ -73,7 +73,7 @@ func _edit(object):
 
 
 func  _handles(object):
-	return object is GridSpace or object is Leaf or object is NodeConnection or object is Decorator or object is Selector or object is Sequence
+	return object is GridSpace or object is Leaf or object is NodeConnection or object is Decorator or object is Selector or object is Sequence or object is Sensor
 
 
 func _make_visible(visible):

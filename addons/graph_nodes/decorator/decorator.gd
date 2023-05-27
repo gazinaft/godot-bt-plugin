@@ -7,6 +7,8 @@ var scene = preload("res://addons/graph_nodes/decorator/decorator_ui.tscn")
 var old_name: String
 var grph_autoload: GraphAutoload
 var decorator: DecoratorUi
+@export_file("*.gd") var leaf_logic
+
 
 func _ready():
     grph_autoload = get_node(GraphAutoload.PATH)
