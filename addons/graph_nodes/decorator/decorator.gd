@@ -11,7 +11,9 @@ var decorator: DecoratorUi
 
 
 func _ready():
+    print(get_tree().edited_scene_root)
     grph_autoload = get_node(GraphAutoload.PATH)
+
     if not renamed.is_connected(_on_renamed):
         renamed.connect(_on_renamed)
     old_name = name
@@ -28,7 +30,7 @@ func _process(delta):
 
 func _exit_tree():
     if decorator:
-        decorator.get_parent().remove_child(decorator)
+        decorator.get_parent().remove_child.call_deferred(decorator)
         decorator.queue_free()
         decorator = null
 

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bc1b4imyvgn7u"]
+
+[ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_6ibvy"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence_logic.gd" id="2_v74ja"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="3_86ifa"]
+[ext_resource type="PackedScene" uid="uid://cuuscipua8mvs" path="res://addons/graph_nodes/connection/node_connection.tscn" id="4_ye2to"]
+[ext_resource type="Script" path="res://addons/graph_nodes/connection/node_connection.gd" id="5_k5ylh"]
+
+[node name="GridSpace" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6ibvy")
+
+[node name="Sequence" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 606.0
+offset_top = 153.167
+offset_right = 646.0
+offset_bottom = 193.167
+script = ExtResource("2_v74ja")
+
+[node name="Leaf" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 306.0
+offset_top = 652.0
+offset_right = 346.0
+offset_bottom = 692.0
+script = ExtResource("3_86ifa")
+
+[node name="Sequence_Leaf" type="Control" parent="." instance=ExtResource("4_ye2to")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_k5ylh")
+parent_base = NodePath("../../GridSpace/Sequence")
+child_base = NodePath("../../GridSpace/Leaf")
+is_connected = true

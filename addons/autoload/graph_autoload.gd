@@ -13,38 +13,23 @@ var edited_space_canvas: GridSpace
 
 var mouse_over: Control
 
-var regex: RegEx
-var regex_canvas: RegEx
-
 signal apply_changes
 
 var opened_scenes: Dictionary = {}
 
-func _ready():
-    regex = RegEx.new()
-    regex.compile("(?<=SubViewport/).*")
-    regex_canvas = RegEx.new()
-    regex_canvas.compile("(?<=SubViewport@\\d{4}/).*")
-
+func _process(delta):
+    if _graph_canvas != null and edited_space_canvas == null:
+        edited_space_canvas = GridSpace.new()
+        _graph_canvas.add_space(edited_space_canvas)
 
 func edit_space(space: GridSpace):
-    if space != null and space == edited_space_tree:
-        return 
-
     if space == null:
-        edited_space_tree = null
-        _graph_canvas.clear_space()
         return
-
-    edited_space_canvas = GridSpace.new()
-    edited_space_canvas.name = space.name
     
     edited_space_tree = space
 
     print("EDITED SPACE: ", edited_space_tree)
     print("EDITED CANVAS: ", edited_space_canvas)
-
-    _graph_canvas.add_space(edited_space_canvas)
 
 
 func sync_changes(node: Node, changes: Callable):
@@ -61,37 +46,49 @@ func select_in_tree(node):
 
 
 func _get_parallel_tree_node(node)->Node:
-    if node == null:
-        return null
-    #print("_get_parallel_tree_node: ", node.get_path().get_concatenated_names())
-    var result = regex.search(node.get_path().get_concatenated_names())
+    # if node == null:
+    #     return null
+    # #print("_get_parallel_tree_node: ", node.get_path().get_concatenated_names())
+    # var result = regex.search(node.get_path().get_concatenated_names())
 
-    if not result:
-        return null
+    # if not result:
+    #     return null
+    if edited_space_tree == null or edited_space_tree.get_parent() == null:
+        return  null
+
+    var result = _get_space_path(node)
+
+    return edited_space_tree.get_parent().get_node_or_null(result)
 
 
-    var n = edited_space_tree.get_parent().get_node_or_null(result.get_string())
-
-    return n
 
 
 func _get_parallel_canvas_node(node)->Node:
-    #print("_get_parallel_canvas_node: ", node.get_path().get_concatenated_names())
-    var result = regex_canvas.search(node.get_path().get_concatenated_names())
+    # #print("_get_parallel_canvas_node: ", node.get_path().get_concatenated_names())
+    # var result = regex_canvas.search(node.get_path().get_concatenated_names())
 
-    if not result or not edited_space_canvas:
-        return null
-        
-    return edited_space_canvas.get_parent().get_node_or_null(result.get_string())
+    # if not result or not edited_space_canvas:
+    #     return null
+    var result = _get_space_path(node)
 
+    return edited_space_canvas.get_parent().get_node_or_null(result)
+
+
+func _get_space_path(n)->String:
+    if n is GridSpace:
+        return n.name
+    if n.get_parent() == null:
+        print(n.get_path())
+        return ""
+    return _get_space_path(n.get_parent()) + "/" + n.name
 
 func is_in_scene_tree(node):
-    var result = regex_canvas.search(node.get_path().get_concatenated_names())
+    var result = _get_parallel_tree_node(node)
     return result != null
 
 
 func is_in_canvas_tree(node):
-    var result = regex.search(node.get_path().get_concatenated_names())
+    var result = _get_parallel_canvas_node(node)
     return result != null
 
 

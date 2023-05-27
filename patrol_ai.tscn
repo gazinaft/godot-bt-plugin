@@ -34,19 +34,6 @@ script = ExtResource("3_g6fwb")
 [node name="IsEnemyInRange" type="Node" parent="Attack"]
 script = ExtResource("4_4sku5")
 
-[node name="Root_Attack" type="Control" parent="." instance=ExtResource("5_xtqs1")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Root")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Attack")
-is_connected = true
-
 [node name="Sequence" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 830.0
@@ -66,19 +53,6 @@ offset_right = 1182.0
 offset_bottom = 346.334
 script = ExtResource("2_7v3v7")
 
-[node name="Root_PatrolSelector" type="Control" parent="." instance=ExtResource("5_xtqs1")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Root")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/PatrolSelector")
-is_connected = true
-
 [node name="ReturnToStart" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 1376.0
@@ -86,32 +60,6 @@ offset_top = 552.0
 offset_right = 1416.0
 offset_bottom = 592.0
 script = ExtResource("3_g6fwb")
-
-[node name="PatrolSelector_ReturnToStart" type="Control" parent="." instance=ExtResource("5_xtqs1")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/PatrolSelector")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/ReturnToStart")
-is_connected = true
-
-[node name="PatrolSelector_Sequence" type="Control" parent="." instance=ExtResource("5_xtqs1")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/PatrolSelector")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Sequence")
-is_connected = true
 
 [node name="GotA" type="Control" parent="."]
 anchors_preset = 0
@@ -139,6 +87,58 @@ offset_right = 916.0
 offset_bottom = 852.0
 script = ExtResource("3_g6fwb")
 
+[node name="Root_Attack" type="Control" parent="." instance=ExtResource("5_xtqs1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_choro")
+parent_base = NodePath("../../PatrolAi/Root")
+child_base = NodePath("../../PatrolAi/Attack")
+is_connected = true
+
+[node name="Root_PatrolSelector" type="Control" parent="." instance=ExtResource("5_xtqs1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_choro")
+parent_base = NodePath("../../PatrolAi/Root")
+child_base = NodePath("../../PatrolAi/PatrolSelector")
+is_connected = true
+
+[node name="PatrolSelector_Sequence" type="Control" parent="." instance=ExtResource("5_xtqs1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_choro")
+parent_base = NodePath("../../PatrolAi/PatrolSelector")
+child_base = NodePath("../../PatrolAi/Sequence")
+is_connected = true
+
+[node name="PatrolSelector_ReturnToStart" type="Control" parent="." instance=ExtResource("5_xtqs1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_choro")
+parent_base = NodePath("../../PatrolAi/PatrolSelector")
+child_base = NodePath("../../PatrolAi/ReturnToStart")
+is_connected = true
+
 [node name="Sequence_GotoB" type="Control" parent="." instance=ExtResource("5_xtqs1")]
 layout_mode = 1
 anchors_preset = 15
@@ -148,21 +148,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Sequence")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/GotoB")
-is_connected = true
-
-[node name="Sequence_GoToC" type="Control" parent="." instance=ExtResource("5_xtqs1")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Sequence")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/GoToC")
+parent_base = NodePath("../../PatrolAi/Sequence")
+child_base = NodePath("../../PatrolAi/GotoB")
 is_connected = true
 
 [node name="Sequence_GotA" type="Control" parent="." instance=ExtResource("5_xtqs1")]
@@ -174,6 +161,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_choro")
-parent_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/Sequence")
-child_base = NodePath("/root/@EditorNode@15953/@Control@6/@Panel@7/@VBoxContainer@15/@HSplitContainer@18/@HSplitContainer@26/@HSplitContainer@34/@VBoxContainer@35/@VSplitContainer@37/@VSplitContainer@63/@VBoxContainer@64/@PanelContainer@103/MainScreen/@CanvasItemEditor@9124/@VSplitContainer@8951/@HSplitContainer@8953/@HSplitContainer@8955/@Control@8956/@SubViewportContainer@8957/@SubViewport@8958/PatrolAi/GotA")
+parent_base = NodePath("../../PatrolAi/Sequence")
+child_base = NodePath("../../PatrolAi/GotA")
+is_connected = true
+
+[node name="Sequence_GoToC" type="Control" parent="." instance=ExtResource("5_xtqs1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_choro")
+parent_base = NodePath("../../PatrolAi/Sequence")
+child_base = NodePath("../../PatrolAi/GoToC")
 is_connected = true

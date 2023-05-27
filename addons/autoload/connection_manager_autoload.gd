@@ -37,6 +37,5 @@ func sync_connection(grph_autload: GraphAutoload):
 	
 	grph_autload.edited_space_tree.add_child(dup)
 	dup.owner = dup.get_parent()
-	dup.parent_base = grph_autload._get_parallel_tree_node(active_conn.parent.get_parent()).get_path()
-	dup.child_base = grph_autload._get_parallel_tree_node(active_conn.child.get_parent()).get_path()
-	dup.get_parent().print_tree_pretty()
+	dup.parent_base = NodePath("../../" + grph_autload._get_space_path(grph_autload._get_parallel_tree_node(active_conn.parent.get_parent())))
+	dup.child_base =  NodePath("../../" + grph_autload._get_space_path(grph_autload._get_parallel_tree_node(active_conn.child.get_parent())))

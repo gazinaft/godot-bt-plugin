@@ -11,25 +11,31 @@ var grph_autoload: GraphAutoload
 @onready var line_conn: LineConnection2D = $Line
 @export var is_connected: bool = false
 
+var is_drawn = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	line_conn = get_node("Line")
 	grph_autoload = get_node(GraphAutoload.PATH) as GraphAutoload
-	if is_connected and grph_autoload.is_in_canvas_tree(self):
-		var tree_conn = grph_autoload._get_parallel_tree_node(self)
-		parent = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(parent_base)).get_node("LeafNode")
-		child = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(child_base)).get_node("LeafNode")
-		_set_up_follow()
 	request_ready()
 
 func _process(delta):
 	if grph_autoload.is_in_scene_tree(self) and not grph_autoload._get_parallel_canvas_node(self):
 		grph_autoload._get_parallel_canvas_node(get_parent()).add_child(self.duplicate())
+		return
 
 	if grph_autoload.is_in_canvas_tree(self):
 		if (parent == null or child == null) and is_connected:
-			get_parent().remove_child(self)
-			queue_free()
+			if not is_drawn:
+				var tree_conn = grph_autoload._get_parallel_tree_node(self)
+				parent = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(parent_base)).get_node("LeafNode")
+				child = grph_autoload._get_parallel_canvas_node(tree_conn.get_node(child_base)).get_node("LeafNode")
+				_set_up_follow()
+				is_drawn = true
+			else:
+				get_parent().remove_child(self)
+
+				queue_free()
 	else:
 		if not (has_node(parent_base) and has_node(child_base)) and is_connected:
 			get_parent().remove_child(self)
@@ -56,8 +62,9 @@ func _end_connection(c: Control):
 func _exit_tree():
 	if grph_autoload.is_in_scene_tree(self):
 		var bl = grph_autoload._get_parallel_canvas_node(self)
-		bl.get_parent().remove_child(bl)
+		bl.get_parent().remove_child.call_deferred(bl)
 		bl.queue_free()
+		is_drawn = true
 
 
 func _input(event):

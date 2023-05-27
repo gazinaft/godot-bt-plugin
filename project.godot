@@ -12,13 +12,13 @@ config_version=5
 
 config/name="ai-gui"
 run/main_scene="res://addons/canvas/graph_canvas.tscn"
-config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-CMAutoload="*res://addons/autoload/connection_manager_autoload.gd"
 GrphAutoload="*res://addons/autoload/graph_autoload.gd"
+CMAutoload="*res://addons/autoload/connection_manager_autoload.gd"
 
 [display]
 
