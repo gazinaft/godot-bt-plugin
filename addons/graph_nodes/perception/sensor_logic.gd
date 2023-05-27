@@ -1,10 +1,10 @@
 @tool
-class_name Leaf
+class_name Sensor
 extends Control
 
-var scene = preload("res://addons/graph_nodes/leaf/leaf_node.tscn")
+var scene = preload("res://addons/graph_nodes/perception/sensor.tscn")
 
-var leaf: PanelContainer
+var leaf: Node
 var grph_autoload: GraphAutoload
 var old_name: String
 @export_file("*.gd") var leaf_logic

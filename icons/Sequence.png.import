@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0tse07qax0wk"
-path="res://.godot/imported/circle-ai.png-f0b8d570202121a1d7c7bb2745cf7f40.ctex"
+uid="uid://c4vhoam11n82h"
+path="res://.godot/imported/Sequence.png-cf8437d8f8118e21fe041af5ed22d481.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://circle-ai.png"
-dest_files=["res://.godot/imported/circle-ai.png-f0b8d570202121a1d7c7bb2745cf7f40.ctex"]
+source_file="res://icons/Sequence.png"
+dest_files=["res://.godot/imported/Sequence.png-cf8437d8f8118e21fe041af5ed22d481.ctex"]
 
 [params]
 

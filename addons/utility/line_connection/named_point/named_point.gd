@@ -18,7 +18,7 @@ func _ready():
 	$Label.text = letter
 
 func _on_follow_point_moved(relative: Vector2):
-	self.position += relative
+	self.position = relative
 	point_moved.emit()
 
 func _on_draggable_moved():

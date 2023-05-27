@@ -1,14 +1,11 @@
 @tool
-class_name LeafNode
+class_name SensorUI
 extends PanelContainer
 
-@onready var draggable_node: DraggableNode = $Draggable
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
-func _get_anchor_for_children():
-	return position + Vector2(size.x/2 - 15, size.y-17)
-
-func _get_anchor_for_parents():
-	return position + Vector2(size.x/2-15, -13)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -21,3 +18,4 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	get_node(GraphAutoload.PATH).mouse_over = null
+	

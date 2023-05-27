@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://cah5f6bkvmjru"]
+
+[ext_resource type="Script" path="res://addons/utility/draggable/draggable.gd" id="1_ikgti"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/sequence_ui.gd" id="1_w0suy"]
+[ext_resource type="LabelSettings" uid="uid://crsjbqbynieby" path="res://addons/graph_nodes/leaf/lavbel_settings.tres" id="2_kmbpq"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/connection_button.gd" id="2_l43sq"]
+[ext_resource type="Texture2D" uid="uid://chugphst15v2l" path="res://icons/arrow.svg" id="3_jf37t"]
+[ext_resource type="Script" path="res://addons/utility/selectable/selectable.gd" id="4_5kwut"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u566g"]
+bg_color = Color(0, 0.784314, 0.290196, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_elebl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ud3pl"]
+bg_color = Color(0.0588235, 0.372549, 0.176471, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1pgqx"]
+color = Color(0.894118, 0.862745, 0.882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ocnha"]
+
+[node name="LeafNode" type="PanelContainer"]
+scale = Vector2(1, 1.00544)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u566g")
+script = ExtResource("1_w0suy")
+
+[node name="VSplitContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme = SubResource("Theme_elebl")
+alignment = 1
+
+[node name="Header" type="Panel" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 30)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ud3pl")
+
+[node name="Decorators" type="VBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_1pgqx")
+
+[node name="Label" type="Label" parent="VSplitContainer"]
+layout_mode = 2
+text = "Sequence"
+label_settings = ExtResource("2_kmbpq")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VSplitContainer"]
+custom_minimum_size = Vector2(4.495, 47.72)
+layout_mode = 2
+texture = ExtResource("3_jf37t")
+expand_mode = 2
+
+[node name="Control" type="CenterContainer" parent="VSplitContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 10)
+layout_mode = 2
+
+[node name="ConnectionButton" type="Button" parent="VSplitContainer/Control"]
+material = SubResource("ShaderMaterial_ocnha")
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+action_mode = 0
+script = ExtResource("2_l43sq")
+
+[node name="Draggable" type="Node" parent="."]
+script = ExtResource("1_ikgti")
+rect_path = NodePath("..")
+
+[node name="Selectable" type="Node" parent="."]
+script = ExtResource("4_5kwut")
+
+[connection signal="gui_input" from="." to="Selectable" method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="gui_input" from="VSplitContainer/Header" to="Draggable" method="_on_gui_input"]
+[connection signal="button_down" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_down"]
+[connection signal="button_up" from="VSplitContainer/Control/ConnectionButton" to="VSplitContainer/Control/ConnectionButton" method="_on_button_up"]

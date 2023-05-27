@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ha6fggysyig"]
+
+[ext_resource type="LabelSettings" uid="uid://crsjbqbynieby" path="res://addons/graph_nodes/leaf/lavbel_settings.tres" id="1_7n0kb"]
+[ext_resource type="Script" path="res://addons/graph_nodes/decorator/decorator_ui.gd" id="2_a3w7g"]
+
+[node name="Decorator" type="Label"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = ExtResource("1_7n0kb")
+horizontal_alignment = 1
+script = ExtResource("2_a3w7g")

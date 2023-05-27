@@ -69,10 +69,11 @@ func _edit(object):
 	var space = _get_space(object)
 	
 	get_node(GraphAutoload.PATH).edit_space(space)
+	
 
 
 func  _handles(object):
-	return object is GridSpace or object is BaseLeaf or object is NodeConnection or object is BaseDecorator
+	return object is GridSpace or object is Leaf or object is NodeConnection or object is Decorator or object is Selector or object is Sequence
 
 
 func _make_visible(visible):
@@ -98,9 +99,15 @@ func instantiate_canvas():
 	
 
 func register_custom_types():
-	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://circle-ai.png"))
-	add_custom_type("BaseLeaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://circle-ai.png"))
-	add_custom_type("BaseDecorator", "Control", preload("res://addons/graph_nodes/decorator/base_decorator.gd"), preload("res://circle-ai.png"))
+	add_custom_type("GridSpace", "Control", preload("res://addons/canvas/grid_space/grid_space.gd"), preload("res://icons/GridSpace.svg"))
+	add_custom_type("Leaf", "Control", preload("res://addons/graph_nodes/leaf/base_leaf.gd"), preload("res://icons/Leaf.svg"))
+	add_custom_type("Decorator", "Control", preload("res://addons/graph_nodes/decorator/decorator.gd"), preload("res://icons/Decorator.svg"))
+	add_custom_type("ConnectionNode", "Control", preload("res://addons/graph_nodes/connection/node_connection.gd"), preload("res://icons/circle-ai.png"))
+	add_custom_type("Sequence", "Control", preload("res://addons/graph_nodes/tree_control/sequence_logic.gd"), preload("res://icons/Sequence.png"))
+	add_custom_type("Selector", "Control", preload("res://addons/graph_nodes/tree_control/selector_logic.gd"), preload("res://icons/Selector.png"))
+	add_custom_type("Sensor", "Control", preload("res://addons/graph_nodes/perception/sensor_logic.gd"), preload("res://icons/Sensor.svg"))
+	
+
 
 
 func register_autoload():
@@ -115,6 +122,11 @@ func register_autoload():
 func unload_plugin():
 	graph_canvas_instance.queue_free()
 	remove_custom_type("GridSpace")
-	remove_custom_type("BaseLeaf")
+	remove_custom_type("Leaf")
+	remove_custom_type("Sequence")
+	remove_custom_type("Decorator")
+	remove_custom_type("ConnectionNode")
+	remove_custom_type("Selector")
+	remove_custom_type("Sensor")
 	remove_autoload_singleton(GraphAutoload.NAME)
 	remove_autoload_singleton(ConnectionManagerAutoload.NAME)
