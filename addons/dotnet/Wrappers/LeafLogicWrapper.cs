@@ -5,9 +5,10 @@ using Godot;
 
 namespace aigui.addons.dotnet.Wrappers;
 
+[Tool]
 public class LeafLogicWrapper: LeafLogic
 {
-    private Node _node;
+    private readonly Node _node;
     
     public LeafLogicWrapper(Node node)
     {
@@ -23,5 +24,11 @@ public class LeafLogicWrapper: LeafLogic
     {
         _node._Process(delta);
         return Task.CompletedTask;
+    }
+
+    public override bool IsComplete
+    {
+        get => (bool)_node.Get("_is_complete");
+        protected set => _node.Set("_is_complete", value);
     }
 }

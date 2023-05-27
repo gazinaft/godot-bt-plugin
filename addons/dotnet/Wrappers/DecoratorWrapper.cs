@@ -4,6 +4,7 @@ using Godot;
 
 namespace aigui.addons.dotnet.Wrappers;
 
+[Tool]
 public class DecoratorWrapper: DecoratorLogic
 {
     private Node _node; 

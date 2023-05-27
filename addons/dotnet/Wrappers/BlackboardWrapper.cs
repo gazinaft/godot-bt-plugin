@@ -4,10 +4,11 @@ using Godot;
 
 namespace aigui.addons.dotnet.Wrappers;
 
+[Tool]
 public class BlackboardWrapper: Blackboard
 {
     
-    private Node _node;
+    public Node _node;
 
     public BlackboardWrapper(Node node)
     {
