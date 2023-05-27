@@ -24,11 +24,13 @@ public partial class Bridge : Node
 		
 	}
 
+	[Export] private NodePath _gridSpacePath;
+
 	private Dictionary<Node, List<Node>> _hierarchy;
 
 	private Node CreateAiNode()
 	{
-		var gridSpace = GetNode("GridSpace");
+		var gridSpace = GetNode(_gridSpacePath);
 		var connections = gridSpace.GetChildren()
 			.Where(x => x.IsClass("NodeConnection")).ToList();
 		_hierarchy = GetHierarchy(connections);
