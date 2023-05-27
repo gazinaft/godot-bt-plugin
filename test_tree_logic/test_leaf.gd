@@ -1,15 +1,16 @@
-# meta-name: Leaf Logic
-# meta-default: true
-# meta-space-indent: 4
 extends LeafLogic
 
+var i: int
 
 #Runs once when this leaf is chosen to run.
 func _ready()->void:
-	#Set var "_is_complete" to "true" in order to finish execution manually.
+	i = 0	
 	_is_complete = false
-	pass
+	print("Start leaf logic")
 
 #Runs every frame.
 func _process(delta)->void:
-	pass
+	i += 1;
+	if i == 100:
+		_is_complete = true
+		print("End leaf logic")

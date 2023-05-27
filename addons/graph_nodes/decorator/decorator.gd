@@ -38,3 +38,9 @@ func _exit_tree():
 func _on_renamed():
     decorator.text = name
     old_name = name
+
+func get_class():
+    return "Decorator"
+
+func is_class(clas: String):
+    return clas == "Decorator"

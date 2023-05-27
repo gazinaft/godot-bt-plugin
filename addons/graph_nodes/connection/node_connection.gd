@@ -81,3 +81,8 @@ func _set_up_follow():
 	line_conn.adjust_sigmoid()
 
 
+func get_class():
+	return "NodeConnection"
+
+func is_class(clas: String):
+	return clas == "NodeConnection"

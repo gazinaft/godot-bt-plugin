@@ -27,7 +27,8 @@ public partial class Bridge : Node
 	
 	[Export] private NodePath _gridSpacePath;
 	[Export] private bool _toBuild;
-
+	[Export] private string _pathToBb;
+	
 	private bool _isBuildChanged;
 
 	private Dictionary<Node, List<Node>> _hierarchy;
@@ -35,18 +36,27 @@ public partial class Bridge : Node
 	private Node CreateAiNode()
 	{
 		var gridSpace = GetNode(_gridSpacePath);
+		GD.Print(gridSpace);
+		GD.Print(gridSpace.GetChildren().Select(x => x.Call("get_class")).Aggregate((x, y) => x + " " + y));
 		var connections = gridSpace.GetChildren()
-			.Where(x => x.IsClass("NodeConnection")).ToList();
+			.Where(x => (bool)x.Call("is_class", "NodeConnection")).ToList();
+		foreach (var connection in connections)
+		{
+			GD.Print(connection);
+		}
+		
 		_hierarchy = GetHierarchy(connections);
 		
 		var actionManager = new ActionManager();
 		var tree = new BehaviorTree();
-		// TODO: BlackBoard node
-		var bb = new BlackboardWrapper(new Node());
+
+		var gdBb = GD.Load<GDScript>(_pathToBb);
+		var bb = new BlackboardWrapper((Node)gdBb.New());
 		
 		var rootNode = GetRoot(_hierarchy);
 
 		tree.Root = BuildBlock(rootNode, tree, bb);
+		GD.Print(tree.ToString());
 		
 		return new GodotAiComponent(new AiComponent(actionManager, tree, bb, new List<Sensor>(CreateSensors(bb, gridSpace))));
 	}
@@ -54,7 +64,7 @@ public partial class Bridge : Node
 	private IEnumerable<SensorWrapper> CreateSensors(BlackboardWrapper bb, Node gridSpace)
 	{
 		return gridSpace.GetChildren()
-			.Where(x => x.IsClass("Sensor")) // TODO: change "Sensor" to appropriate classname because sensor stores logic, not ref to it
+			.Where(x => (bool)x.Call("is_class", "Sensor"))
 			.Select(x => LoadLinkedGdNode(x, bb._node))
 			.Select(x => new SensorWrapper(bb, x));
 	}
@@ -69,11 +79,15 @@ public partial class Bridge : Node
 		var temp = new Dictionary<Node, List<(float, Node)>>();
 		foreach (var connection in connections)
 		{
-			var parent = GetNode((NodePath)connection.Get("parent_base"));
-			var child = GetNode((NodePath)connection.Get("child_base"));
+			var parent = connection.GetNode((NodePath)connection.Get("parent_base"));
+			var child = connection.GetNode((NodePath)connection.Get("child_base"));
 
+			GD.Print(parent);
+			GD.Print(child);
+			
 			var childPosX = ((Control)connection.Get("child")).Position.X;
-
+			GD.Print(childPosX);
+			
 			if (temp.TryGetValue(parent, out var re))
 			{
 				re.Add((childPosX, child));
@@ -126,28 +140,27 @@ public partial class Bridge : Node
 	
 	private TreeTask BuildBlock(Node node, BehaviorTree tree, BlackboardWrapper bb)
 	{
-		var decorators = node.GetChildren().Where(x => x.IsClass("Decorator")).ToList();
+		var decorators = node.GetChildren().Where(x => (bool)x.Call("is_class","Decorator")).ToList();
 		
-		if (node.IsClass("Leaf"))
+		if ((bool)node.Call("is_class", "Leaf"))
 		{
 			return DecorateTreeTask(decorators, new Leaf(new LeafLogicWrapper(LoadLinkedGdNode(node))), bb);
 		}
 		
 		var treeTasks = GetTreeChildren(node).Select(x => BuildBlock(x, tree, bb)).ToList();
 
-		return DecorateTreeTask(decorators, node.GetClass() switch
+		return DecorateTreeTask(decorators, (string)node.Call("get_class") switch
 		{
 			"Selector" => new Selector(treeTasks),
 			"Sequence" => new Sequence(treeTasks, tree),
 			_ => throw new InvalidEnumArgumentException("Tree can only consist of tree nodes, but gotten class " +
-			                                            node.GetClass())
+			                                            node.Call("get_class"))
 		}, bb);
 	}
 
 	private Node LoadLinkedGdNode(Node node, Node blackboard = null)
 	{
 		var path = (string)node.Get("leaf_logic");
-		// TODO: separate logic nodes and nodes, which store paths to logic everywhere here
 		var script = (GDScript)GD.Load(path);
 		if (blackboard == null)
 		{
@@ -164,6 +177,8 @@ public partial class Bridge : Node
 		{
 			GD.Print("Started construnction");
 			GodotAiComponent ai = (GodotAiComponent)CreateAiNode();
+			
+			ai._Process(17);
 		}
 
 		_toBuild = false;

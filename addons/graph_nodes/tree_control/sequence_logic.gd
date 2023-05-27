@@ -47,3 +47,9 @@ func _exit_tree():
 		var bl = grph_autoload._get_parallel_canvas_node(self)
 		bl.get_parent().remove_child.call_deferred(bl)
 		bl.queue_free()
+
+func get_class():
+	return "Sequence"
+
+func is_class(clas: String):
+	return clas == "Sequence"

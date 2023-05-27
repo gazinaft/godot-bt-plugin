@@ -47,3 +47,9 @@ func _exit_tree():
 		var bl = grph_autoload._get_parallel_canvas_node(self)
 		bl.get_parent().remove_child(bl)
 		bl.queue_free()
+
+func get_class():
+	return "Sensor"
+
+func is_class(clas: String):
+	return clas == "Sensor"
