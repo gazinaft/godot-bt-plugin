@@ -59,20 +59,28 @@ public partial class Bridge : Node
 
 	private Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
 	{
-		var res = new Dictionary<Node, List<Node>>();
+		var temp = new Dictionary<Node, List<(float, Node)>>();
 		foreach (var connection in connections)
 		{
 			var parent = GetNode((NodePath)connection.Get("parent_base"));
 			var child = GetNode((NodePath)connection.Get("child_base"));
 
-			if (res.TryGetValue(parent, out var re))
+			var childPosX = ((PanelContainer)connection.Get("child")).Position.X;
+
+			if (temp.TryGetValue(parent, out var re))
 			{
-				re.Add(child);
+				re.Add((childPosX, child));
 			}
 			else
 			{
-				res[parent] = new List<Node> { child };
+				temp[parent] = new List<(float, Node)> { (childPosX, child) };
 			}
+		}
+
+		var res = new Dictionary<Node, List<Node>>();
+		foreach (var pair in temp)
+		{
+			res[pair.Key] = pair.Value.OrderBy(tuple => tuple.Item1).Select(x => x.Item2).ToList();
 		}
 
 		return res;
