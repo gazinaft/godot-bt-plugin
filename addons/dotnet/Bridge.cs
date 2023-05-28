@@ -29,8 +29,6 @@ public partial class Bridge : Node
 	[Export] private bool _toBuild;
 	[Export] private string _pathToBb;
 	
-	private bool _isBuildChanged;
-
 	private Dictionary<Node, List<Node>> _hierarchy;
 
 	private Node CreateAiNode()
@@ -61,7 +59,7 @@ public partial class Bridge : Node
 		return new GodotAiComponent(new AiComponent(actionManager, tree, bb, new List<Sensor>(CreateSensors(bb, gridSpace))));
 	}
 
-	private IEnumerable<SensorWrapper> CreateSensors(BlackboardWrapper bb, Node gridSpace)
+	private static IEnumerable<SensorWrapper> CreateSensors(BlackboardWrapper bb, Node gridSpace)
 	{
 		return gridSpace.GetChildren()
 			.Where(x => (bool)x.Call("is_class", "Sensor"))
@@ -128,7 +126,7 @@ public partial class Bridge : Node
 		return root;
 	}
 
-	private TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, BlackboardWrapper bb)
+	private static TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, BlackboardWrapper bb)
 	{
 		if (decorators.Count == 0) return treeTask;
 
@@ -158,7 +156,7 @@ public partial class Bridge : Node
 		}, bb);
 	}
 
-	private Node LoadLinkedGdNode(Node node, Node blackboard = null)
+	private static Node LoadLinkedGdNode(Node node, Node blackboard = null)
 	{
 		var path = (string)node.Get("leaf_logic");
 		var script = (GDScript)GD.Load(path);
