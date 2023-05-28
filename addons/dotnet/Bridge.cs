@@ -72,7 +72,7 @@ public partial class Bridge : Node
 		return _hierarchy[node];
 	}
 
-	private Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
+	private static Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
 	{
 		var temp = new Dictionary<Node, List<(float, Node)>>();
 		foreach (var connection in connections)
@@ -112,7 +112,7 @@ public partial class Bridge : Node
 		return res;
 	}
 
-	private Node GetRoot(Dictionary<Node, List<Node>> hierarchy)
+	private static Node GetRoot(Dictionary<Node, List<Node>> hierarchy)
 	{
 		var nonRoots = new HashSet<Node>();
 		foreach (var value in hierarchy.Values)
