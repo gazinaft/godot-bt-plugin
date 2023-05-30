@@ -11,6 +11,6 @@ func _ready()->void:
 #Runs every frame.
 func _process(delta)->void:
 	i += 1;
-	if i == 100:
+	if i == 20:
 		_is_complete = true
 		print("End leaf logic")

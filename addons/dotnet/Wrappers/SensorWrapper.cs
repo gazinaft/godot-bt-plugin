@@ -16,6 +16,6 @@ public class SensorWrapper : Sensor
 
     public override void Sense(float delta)
     {
-        _node._Process(delta);
+        _node.Call("_process", delta);
     }
 }

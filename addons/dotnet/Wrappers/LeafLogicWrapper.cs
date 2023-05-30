@@ -17,12 +17,12 @@ public class LeafLogicWrapper: LeafLogic
     
     public override void Start()
     {
-        _node._Ready();
+        _node.Call("_ready");
     }
 
     public override Task Update(float delta)
     {
-        _node._Process(delta);
+        _node.Call("_process", delta);
         return Task.CompletedTask;
     }
 
@@ -30,5 +30,10 @@ public class LeafLogicWrapper: LeafLogic
     {
         get => (bool)_node.Get("_is_complete");
         protected set => _node.Set("_is_complete", value);
+    }
+
+    public override string ToString()
+    {
+        return $"name: {_node.Name}, script: {((GDScript)_node.GetScript()).ResourcePath}";
     }
 }

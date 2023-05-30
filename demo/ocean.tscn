@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bukvfccubcgcj"]
+
+[ext_resource type="PackedScene" uid="uid://7adqomvjgv03" path="res://demo/player_fish/fish_player.tscn" id="1_am3ku"]
+[ext_resource type="Shader" path="res://demo/ocean.gdshader" id="1_ty6xy"]
+[ext_resource type="Script" path="res://demo/plankton_spawner.gd" id="3_prjdi"]
+[ext_resource type="PackedScene" uid="uid://cfrcahu846n4o" path="res://demo/pacifist_fish/pacifist_fish.tscn" id="4_3ec2u"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnndc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u0hqh"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_lnndc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_866a3"]
+shader = ExtResource("1_ty6xy")
+shader_parameter/refraction_stretch = Vector2(0.5, 0.5)
+shader_parameter/refraction_strength = 0.01
+shader_parameter/water_tint = Color(0.2, 0.6, 1, 0.1)
+shader_parameter/speed = 0.1
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_u0hqh")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ine4d"]
+
+[node name="Ocean" type="Node2D"]
+
+[node name="FishPlayer" parent="." instance=ExtResource("1_am3ku")]
+position = Vector2(4845, 4608)
+max_speed = 300.0
+min_speed = 150.0
+
+[node name="Camera2D" type="Camera2D" parent="FishPlayer"]
+zoom = Vector2(0.7, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="FishPlayer"]
+material = SubResource("ShaderMaterial_866a3")
+position = Vector2(6.99971, 13.5)
+scale = Vector2(6.57812, 3.88867)
+texture = SubResource("NoiseTexture2D_ine4d")
+
+[node name="PlankronSpawner" type="Node2D" parent="."]
+script = ExtResource("3_prjdi")
+amount_per_zone = 2
+
+[node name="PacifistFish" parent="." instance=ExtResource("4_3ec2u")]
+position = Vector2(5744, 4177)
+max_speed = 200.0
+min_speed = 100.0

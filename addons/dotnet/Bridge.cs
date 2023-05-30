@@ -16,170 +16,172 @@ using Perception;
 
 namespace aigui.addons.dotnet;
 
-[Tool]
 public partial class Bridge : Node
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
-	
-	[Export] private NodePath _gridSpacePath;
-	[Export] private bool _toBuild;
-	[Export] private string _pathToBb;
-	
-	private Dictionary<Node, List<Node>> _hierarchy;
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
 
-	private Node CreateAiNode()
-	{
-		var gridSpace = GetNode(_gridSpacePath);
-		GD.Print(gridSpace);
-		GD.Print(gridSpace.GetChildren().Select(x => x.Call("get_class")).Aggregate((x, y) => x + " " + y));
-		var connections = gridSpace.GetChildren()
-			.Where(x => (bool)x.Call("is_class", "NodeConnection")).ToList();
-		foreach (var connection in connections)
-		{
-			GD.Print(connection);
-		}
-		
-		_hierarchy = GetHierarchy(connections);
-		
-		var actionManager = new ActionManager();
-		var tree = new BehaviorTree();
+    }
 
-		var gdBb = GD.Load<GDScript>(_pathToBb);
-		var bb = new BlackboardWrapper((Node)gdBb.New());
-		
-		var rootNode = GetRoot(_hierarchy);
+    [Export] private NodePath _gridSpacePath;
+    [Export] private bool _toBuild = true;
+    [Export] private bool _toExecute;
+    [Export] private string _pathToBb = "res://addons/logic/blackboard.gd";
 
-		tree.Root = BuildBlock(rootNode, tree, bb);
-		GD.Print(tree.ToString());
-		
-		return new GodotAiComponent(new AiComponent(actionManager, tree, bb, new List<Sensor>(CreateSensors(bb, gridSpace))));
-	}
+    private Dictionary<Node, List<Node>> _hierarchy;
+    private GodotAiComponent _ai;
+    private Node _gdBb;
 
-	private static IEnumerable<SensorWrapper> CreateSensors(BlackboardWrapper bb, Node gridSpace)
-	{
-		return gridSpace.GetChildren()
-			.Where(x => (bool)x.Call("is_class", "Sensor"))
-			.Select(x => LoadLinkedGdNode(x, bb._node))
-			.Select(x => new SensorWrapper(bb, x));
-	}
+    private Node CreateAiNode()
+    {
+        var gridSpace = GetNode(_gridSpacePath);
+        GD.Print(gridSpace);
+        GD.Print(gridSpace.GetChildren().Select(x => x.Call("get_class")).Aggregate((x, y) => x + " " + y));
+        var connections = gridSpace.GetChildren()
+            .Where(x => (bool)x.Call("is_class", "NodeConnection")).ToList();
+        foreach (var connection in connections)
+        {
+            GD.Print(connection);
+        }
 
-	private List<Node> GetTreeChildren(Node node)
-	{
-		return _hierarchy[node];
-	}
+        _hierarchy = GetHierarchy(connections);
 
-	private static Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
-	{
-		var temp = new Dictionary<Node, List<(float, Node)>>();
-		foreach (var connection in connections)
-		{
-			var parent = connection.GetNode((NodePath)connection.Get("parent_base"));
-			var child = connection.GetNode((NodePath)connection.Get("child_base"));
+        var actionManager = new ActionManager();
+        var tree = new BehaviorTree();
 
-			GD.Print(parent);
-			GD.Print(child);
-			
-			var childPosX = ((Control)connection.Get("child")).Position.X;
-			GD.Print(childPosX);
-			
-			if (temp.TryGetValue(parent, out var re))
-			{
-				re.Add((childPosX, child));
-			}
-			else
-			{
-				temp[parent] = new List<(float, Node)> { (childPosX, child) };
-			}
-		}
-		GD.Print("Constructing Hierarchy");
+        var bb = new BlackboardWrapper(_gdBb);
 
-		var res = new Dictionary<Node, List<Node>>();
-		foreach (var pair in temp)
-		{
-			res[pair.Key] = pair.Value.OrderBy(tuple => tuple.Item1).Select(x => x.Item2).ToList();
-			GD.Print("Parent " + pair.Key);
-			GD.Print("Children");
-			foreach (var (x, node) in pair.Value)
-			{
-				GD.Print(node + " at x " + x);
-			}
-		}
-		
-		return res;
-	}
+        var rootNode = GetRoot(_hierarchy);
 
-	private static Node GetRoot(Dictionary<Node, List<Node>> hierarchy)
-	{
-		var nonRoots = new HashSet<Node>();
-		foreach (var value in hierarchy.Values)
-		{
-			nonRoots.UnionWith(value);
-		}
-		
-		var root = hierarchy.Keys.First(x => !nonRoots.Contains(x));
-		GD.Print("The root is " + root.Name);
-		
-		return root;
-	}
+        tree.Root = BuildBlock(rootNode, tree, bb);
+        GD.Print(tree.ToString());
 
-	private static TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, BlackboardWrapper bb)
-	{
-		if (decorators.Count == 0) return treeTask;
+        return new GodotAiComponent(new AiComponent(actionManager, tree, bb, new List<Sensor>(CreateSensors(bb, gridSpace))));
+    }
 
-		var node = decorators[0];
-		GD.Print("Decorator is " + node);
-		return new Decorator(new DecoratorWrapper(bb, LoadLinkedGdNode(node, bb._node)),
-			DecorateTreeTask(decorators.Skip(1).ToList(), treeTask, bb));
-	}
-	
-	private TreeTask BuildBlock(Node node, BehaviorTree tree, BlackboardWrapper bb)
-	{
-		var decorators = node.GetChildren().Where(x => (bool)x.Call("is_class","Decorator")).ToList();
-		
-		if ((bool)node.Call("is_class", "Leaf"))
-		{
-			return DecorateTreeTask(decorators, new Leaf(new LeafLogicWrapper(LoadLinkedGdNode(node))), bb);
-		}
-		
-		var treeTasks = GetTreeChildren(node).Select(x => BuildBlock(x, tree, bb)).ToList();
+    private IEnumerable<SensorWrapper> CreateSensors(BlackboardWrapper bb, Node gridSpace)
+    {
+        return gridSpace.GetChildren()
+            .Where(x => (bool)x.Call("is_class", "Sensor"))
+            .Select(x => LoadLinkedGdNode(x, "sensor_logic", bb._node, GetParent()))
+            .Select(x => new SensorWrapper(bb, x));
+    }
 
-		return DecorateTreeTask(decorators, (string)node.Call("get_class") switch
-		{
-			"Selector" => new Selector(treeTasks),
-			"Sequence" => new Sequence(treeTasks, tree),
-			_ => throw new InvalidEnumArgumentException("Tree can only consist of tree nodes, but gotten class " +
-			                                            node.Call("get_class"))
-		}, bb);
-	}
+    private List<Node> GetTreeChildren(Node node)
+    {
+        return _hierarchy[node];
+    }
 
-	private static Node LoadLinkedGdNode(Node node, Node blackboard = null)
-	{
-		var path = (string)node.Get("leaf_logic");
-		var script = (GDScript)GD.Load(path);
-		if (blackboard == null)
-		{
-			return (Node) script.New();
-		}
+    private static Dictionary<Node, List<Node>> GetHierarchy(List<Node> connections)
+    {
+        var temp = new Dictionary<Node, List<(float, Node)>>();
+        foreach (var connection in connections)
+        {
+            var parent = (Control)connection.GetNode((NodePath)connection.Get("parent_base"));
+            var child = (Control)connection.GetNode((NodePath)connection.Get("child_base"));
 
-		return (Node)script.New(blackboard);
-	}
-	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (_toBuild)
-		{
-			GD.Print("Started construnction");
-			GodotAiComponent ai = (GodotAiComponent)CreateAiNode();
-			
-			ai._Process(17);
-		}
+            GD.Print(parent);
+            GD.Print(child);
 
-		_toBuild = false;
-	}
+            var childPosX = child.Position.X;
+            GD.Print(childPosX);
+
+            if (temp.TryGetValue(parent, out var re))
+            {
+                re.Add((childPosX, child));
+            }
+            else
+            {
+                temp[parent] = new List<(float, Node)> { (childPosX, child) };
+            }
+        }
+        GD.Print("Constructing Hierarchy");
+
+        var res = new Dictionary<Node, List<Node>>();
+        foreach (var pair in temp)
+        {
+            res[pair.Key] = pair.Value.OrderBy(tuple => tuple.Item1).Select(x => x.Item2).ToList();
+            GD.Print("Parent " + pair.Key);
+            GD.Print("Children");
+            foreach (var (x, node) in pair.Value)
+            {
+                GD.Print(node + " at x " + x);
+            }
+        }
+
+        return res;
+    }
+
+    private static Node GetRoot(Dictionary<Node, List<Node>> hierarchy)
+    {
+        var nonRoots = new HashSet<Node>();
+        foreach (var value in hierarchy.Values)
+        {
+            nonRoots.UnionWith(value);
+        }
+
+        var root = hierarchy.Keys.First(x => !nonRoots.Contains(x));
+        GD.Print("The root is " + root.Name);
+
+        return root;
+    }
+
+    private static TreeTask DecorateTreeTask(List<Node> decorators, TreeTask treeTask, BlackboardWrapper bb)
+    {
+        if (decorators.Count == 0) return treeTask;
+
+        var node = decorators[0];
+        GD.Print("Decorator is " + node);
+        return new Decorator(new DecoratorWrapper(bb, LoadLinkedGdNode(node, "decorator_logic", bb._node)),
+            DecorateTreeTask(decorators.Skip(1).ToList(), treeTask, bb));
+    }
+
+    private TreeTask BuildBlock(Node node, BehaviorTree tree, BlackboardWrapper bb)
+    {
+        var decorators = node.GetChildren().Where(x => (bool)x.Call("is_class", "Decorator")).ToList();
+
+        if ((bool)node.Call("is_class", "Leaf"))
+        {
+            return DecorateTreeTask(decorators, new Leaf(new LeafLogicWrapper(LoadLinkedGdNode(node, "leaf_logic", bb._node, GetParent()))), bb);
+        }
+
+        var treeTasks = GetTreeChildren(node).Select(x => BuildBlock(x, tree, bb)).ToList();
+
+        return DecorateTreeTask(decorators, (string)node.Call("get_class") switch
+        {
+            "Selector" => new Selector(treeTasks),
+            "Sequence" => new Sequence(treeTasks, tree),
+            _ => throw new InvalidEnumArgumentException("Tree can only consist of tree nodes, but gotten class " +
+                                                        node.Call("get_class"))
+        }, bb);
+    }
+
+    private static Node LoadLinkedGdNode(Node node, string pathToScript, params Variant[] args)
+    {
+        var path = (string)node.Get(pathToScript);
+        GD.Print($"path: {path}");
+        var script = (GDScript)GD.Load(path);
+
+        return (Node)script.New(args);
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (_toBuild)
+        {
+            GD.Print("Started construnction");
+            _gdBb = (Node)GD.Load<GDScript>(_pathToBb).New();
+            _gdBb.Call("set_entry", "actor", GetParent());
+            _ai = (GodotAiComponent)CreateAiNode();
+            _toBuild = false;
+        }
+
+        if (_ai is not null)
+        {
+            _ai._Process(delta);
+        }
+    }
 
 }

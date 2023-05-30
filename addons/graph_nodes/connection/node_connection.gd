@@ -2,9 +2,9 @@
 extends Control
 class_name NodeConnection
 
-@export_node_path() var parent_base: NodePath
+@export var parent_base: NodePath
 var parent: Control
-@export_node_path() var child_base: NodePath
+@export var child_base: NodePath
 var child: Control
 var grph_autoload: GraphAutoload
 
@@ -15,6 +15,10 @@ var is_drawn = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if not Engine.is_editor_hint():
+		set_process(false)
+		set_process_input(false)
+		return
 	line_conn = get_node("Line")
 	grph_autoload = get_node(GraphAutoload.PATH) as GraphAutoload
 	request_ready()
@@ -60,6 +64,8 @@ func _end_connection(c: Control):
 
 
 func _exit_tree():
+	if not Engine.is_editor_hint():
+		return
 	if grph_autoload.is_in_scene_tree(self):
 		var bl = grph_autoload._get_parallel_canvas_node(self)
 		bl.get_parent().remove_child.call_deferred(bl)

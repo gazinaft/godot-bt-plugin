@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://wwxue073tg7"]
-
-[ext_resource type="PackedScene" uid="uid://drcijm1wifq1k" path="res://patrol_ai.tscn" id="1_4cc2o"]
-
-[node name="Node" type="Node"]
-
-[node name="PatrolAi" parent="." instance=ExtResource("1_4cc2o")]

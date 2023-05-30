@@ -15,7 +15,7 @@ public partial class GodotAiComponent : Node
 
     public override void _Process(double delta)
     {
-        _ai.Update((float)delta);
+        _ai.Update((float)delta).Wait();
     }
     
 }
