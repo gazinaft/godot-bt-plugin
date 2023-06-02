@@ -11,6 +11,11 @@ var old_name: String
 
 
 func _ready():
+	if not Engine.is_editor_hint():
+		set_process(false)
+		set_process_input(false)
+		return
+		
 	grph_autoload = get_node(GraphAutoload.PATH)
 
 	old_name = name
@@ -18,7 +23,7 @@ func _ready():
 	if grph_autoload.is_in_scene_tree(self):
 		if not renamed.is_connected(_on_renamed):
 			renamed.connect(_on_renamed)
-	else:
+	if grph_autoload.is_in_canvas_tree(self):
 		var b_leaf = grph_autoload._get_parallel_tree_node(self)
 
 		leaf = scene.instantiate()
@@ -43,7 +48,16 @@ func _on_renamed():
 
 
 func _exit_tree():
+	if not Engine.is_editor_hint():
+		return
 	if grph_autoload.is_in_scene_tree(self):
 		var bl = grph_autoload._get_parallel_canvas_node(self)
-		bl.get_parent().remove_child(bl)
+		bl.get_parent().remove_child.call_deferred(bl)
 		bl.queue_free()
+
+
+func get_class():
+	return "Selector"
+
+func is_class(clas: String):
+	return clas == "Selector"

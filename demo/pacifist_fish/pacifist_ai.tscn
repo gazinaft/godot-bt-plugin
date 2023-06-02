@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddhjvj4lgrpvn"]
+
+[ext_resource type="Script" path="res://addons/canvas/grid_space/grid_space.gd" id="1_nhvpc"]
+[ext_resource type="Script" path="res://addons/graph_nodes/tree_control/selector_logic.gd" id="2_jdxll"]
+[ext_resource type="Script" path="res://addons/graph_nodes/leaf/base_leaf.gd" id="3_qxn7r"]
+[ext_resource type="Script" path="res://addons/graph_nodes/decorator/decorator.gd" id="4_oudtf"]
+[ext_resource type="PackedScene" uid="uid://cuuscipua8mvs" path="res://addons/graph_nodes/connection/node_connection.tscn" id="5_snxsa"]
+[ext_resource type="Script" path="res://addons/graph_nodes/perception/sensor.gd" id="6_72obc"]
+
+[node name="PacifistAi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nhvpc")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 816.514
+offset_top = 40.1041
+offset_right = 856.514
+offset_bottom = 80.1041
+script = ExtResource("2_jdxll")
+
+[node name="SwimPeacefully" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1053.57
+offset_top = 426.751
+offset_right = 1093.57
+offset_bottom = 466.751
+script = ExtResource("3_qxn7r")
+leaf_logic = "res://demo/ai_scripts/swim_peacefully.gd"
+
+[node name="Selector_SwimPeacefully" parent="." instance=ExtResource("5_snxsa")]
+layout_mode = 1
+parent_base = NodePath("../Root")
+child_base = NodePath("../../PacifistAi/SwimPeacefully")
+is_connected = true
+
+[node name="PlayerSensor" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1374.53
+offset_top = 98.6937
+offset_right = 1414.53
+offset_bottom = 138.694
+script = ExtResource("6_72obc")
+sensor_logic = "res://demo/ai_scripts/fish_sensor.gd"
+
+[node name="PlayerAttackSensor" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1366.0
+offset_top = 238.0
+offset_right = 1406.0
+offset_bottom = 278.0
+script = ExtResource("6_72obc")
+sensor_logic = "res://demo/ai_scripts/fish_attack_sensor.gd"
+
+[node name="RunFromEnemy" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 499.728
+offset_top = 413.818
+offset_right = 539.728
+offset_bottom = 453.818
+script = ExtResource("3_qxn7r")
+leaf_logic = "res://demo/ai_scripts/run_from_enemy.gd"
+
+[node name="IsFishInRange" type="Node" parent="RunFromEnemy"]
+script = ExtResource("4_oudtf")
+decorator_logic = "res://demo/ai_scripts/is_fish_in_range.gd"
+
+[node name="HasFishAttacked" type="Node" parent="RunFromEnemy"]
+script = ExtResource("4_oudtf")
+decorator_logic = "res://demo/ai_scripts/has_fish_attackded.gd"
+
+[node name="Root_RunFromPlayer" parent="." instance=ExtResource("5_snxsa")]
+layout_mode = 1
+parent_base = NodePath("../../PacifistAi/Root")
+child_base = NodePath("../RunFromEnemy")
+is_connected = true

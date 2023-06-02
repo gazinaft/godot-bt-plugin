@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://l4mdk2umx4av"]
+
+[ext_resource type="Script" path="res://addons/dotnet/Bridge.cs" id="1_eev5n"]
+[ext_resource type="PackedScene" uid="uid://drcijm1wifq1k" path="res://patrol_ai.tscn" id="2_2n4ru"]
+
+[node name="Test" type="Node"]
+script = ExtResource("1_eev5n")
+_gridSpacePath = NodePath("PatrolAi")
+_pathToBb = "res://addons/logic/blackboard.gd"
+
+[node name="PatrolAi" parent="." instance=ExtResource("2_2n4ru")]

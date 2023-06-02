@@ -73,7 +73,7 @@ func _edit(object):
 
 
 func  _handles(object):
-	return object is GridSpace or object is Leaf or object is NodeConnection or object is Decorator or object is Selector or object is Sequence
+	return object is GridSpace or object is Leaf or object is NodeConnection or object is Decorator or object is Selector or object is Sequence or object is Sensor
 
 
 func _make_visible(visible):
@@ -105,7 +105,7 @@ func register_custom_types():
 	add_custom_type("ConnectionNode", "Control", preload("res://addons/graph_nodes/connection/node_connection.gd"), preload("res://icons/circle-ai.png"))
 	add_custom_type("Sequence", "Control", preload("res://addons/graph_nodes/tree_control/sequence_logic.gd"), preload("res://icons/Sequence.png"))
 	add_custom_type("Selector", "Control", preload("res://addons/graph_nodes/tree_control/selector_logic.gd"), preload("res://icons/Selector.png"))
-	add_custom_type("Sensor", "Control", preload("res://addons/graph_nodes/perception/sensor_logic.gd"), preload("res://icons/Sensor.svg"))
+	add_custom_type("Sensor", "Control", preload("res://addons/graph_nodes/perception/sensor.gd"), preload("res://icons/Sensor.svg"))
 	
 
 
